@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="indicator_right_padding">10dp</dimen>
+    <dimen name="indicator_corner_radius">12dp</dimen>
+    <dimen name="indicator_internal_padding">4dp</dimen>
+    <dimen name="header_footer_left_right_padding">24dp</dimen>
+    <dimen name="header_footer_top_bottom_padding">12dp</dimen>
+
+    <dimen name="font_small">14sp</dimen>
+    <dimen name="font_normal">16sp</dimen>
+    <dimen name="font_large">20sp</dimen>
+
+    <!--数字选择器-->
+    <dimen name="number_picker_button_width">30dp</dimen>
+    <dimen name="number_picker_number_width">30dp</dimen>
+    <dimen name="number_picker_height">30dp</dimen>
+
+</resources>

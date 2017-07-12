@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Librarys</string>
+
+    <string name="cancel">取消</string>
+    <string name="confirm">确定</string>
+    <string name="error_unkonw_fail">发生未知错误</string>
+    <string name="error_network_error">网络访问出错</string>
+    <string name="error_network_not_available">当前网络不可用</string>
+
+    <string name="tag_text">tag</string>
+</resources>

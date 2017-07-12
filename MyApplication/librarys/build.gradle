@@ -1,0 +1,92 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 26
+    buildToolsVersion "26.0.0"
+
+    defaultConfig {
+        minSdkVersion 16
+        targetSdkVersion 26
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile 'com.android.support:appcompat-v7:26.+'
+    compile 'com.android.support:support-v4:26.+'
+    compile 'com.android.support:design:26.+'
+    testCompile 'junit:junit:4.12'
+
+    //    https://github.com/supengchao/AutoLayout
+    compile 'com.zhy:autolayout:1.4.3'//屏幕适配
+
+//    https://github.com/JakeWharton/butterknife
+    compile 'com.jakewharton:butterknife:8.7.0' //注释
+
+//    https://github.com/qiangxi/CheckUpdateLibrary
+    compile 'com.qiangxi.checkupdatelibrary:checkupdatelibrary:1.1.3@aar' //Android检查更新库
+
+//    https://github.com/pengwei1024/LogUtils
+    compile 'com.apkfuns.logutils:library:1.5.1.1' //日志
+
+    //net
+    compile 'com.squareup.okhttp:okhttp:2.5.0'
+    compile 'com.squareup.okio:okio:1.5.0'
+    compile 'com.squareup.okhttp:okhttp-urlconnection:2.5.0'
+    compile 'com.mcxiaoke.volley:library:1.0.19'
+
+    //uikit
+    compile 'de.greenrobot:eventbus:3.0.0-beta1'
+    compile 'com.facebook.fresco:fresco:1.3.0'
+    compile 'com.jaeger.statusbaruitl:library:1.1.1'
+
+    //utils
+    compile 'com.google.code.gson:gson:2.5'
+
+
+    //权限
+//    RxPermissions.getInstance(this)
+//            .requestEach(Manifest.permission.CAMERA)
+//            .subscribe(new Action1<Permission>() {
+//        @Override
+//        public void call(Permission permission) {
+//            if (permission.granted) {
+//                LogUtils.e("permission允许");
+//            } else {
+//                LogUtils.e("permission禁止");
+//            }
+//        }
+//    });
+    compile 'com.tbruyelle.rxpermissions:rxpermissions:0.7.0@aar'
+    compile 'com.jakewharton.rxbinding:rxbinding:0.4.0'
+
+
+    //=========================================================================================================================
+//    LogUtils.getLogConfig()
+//            .configAllowLog(true)
+//            .configTagPrefix("MyAppName")
+//            .configShowBorders(true); //初始化log打印
+//
+//    CrashHandler.getInstance().init(this); //初始化异常捕获
+//
+//    AutoLayoutConifg.getInstance().useDeviceSize(); //初始化自动适配
+//
+//    Fresco.initialize(this);//初始化图片加载库
+//
+//    ApiHttpClient.init(this); //初始化网络请求
+    //==========================================================================================================================
+}

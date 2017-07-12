@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+     Copyright (C) 2011 Jake Wharton
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+          http://www.apache.org/licenses/LICENSE-2.0
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+
+<resources>
+
+    <style name="CustomDialog" parent="@android:style/Theme.DeviceDefault.Light.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+        <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
+    </style>
+
+    <style name="CustomDialog.CustomProgressDialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
+    <style name="CustomDialog.CustomDateTimePickerDialog">
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
+    <style name="DialogButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <!--topbar-->
+    <style name="Topbar">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">40dp</item>
+        <item name="android:background">@drawable/topbar_bg</item>
+    </style>
+
+    <style name="TopbarText">
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/font_small</item>
+    </style>
+
+    <style name="TopbarTitle" parent="TopbarText">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerInParent">true</item>
+        <item name="android:textSize">@dimen/font_normal</item>
+    </style>
+
+    <!--nav-->
+    <style name="NavIconItem">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center</item>
+    </style>
+
+    <style name="NavIconImage">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:scaleType">fitCenter</item>
+    </style>
+
+    <style name="NavIconBadge">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="NavIconTitle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:gravity">bottom|center_horizontal</item>
+        <item name="android:textSize">@dimen/font_small</item>
+    </style>
+
+    <!--数字选择器-->
+    <style name="NumberPickerContainer">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/number_picker_height</item>
+        <!--<item name="android:background">@drawable/bg_weiget_number_picker</item>-->
+    </style>
+
+    <style name="NumberPickerControlButton">
+        <item name="android:layout_width">@dimen/number_picker_button_width</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:gravity">center</item>
+        <item name="android:scaleType">fitCenter</item>
+    </style>
+
+    <style name="NumberPickerControlButton.Pre">
+        <item name="android:src">@mipmap/widget_number_picker_btn_pre</item>
+    </style>
+
+    <style name="NumberPickerControlButton.Next">
+        <item name="android:src">@mipmap/widget_number_picker_btn_next</item>
+    </style>
+
+    <style name="NumberPickerEditText">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:minWidth">@dimen/number_picker_number_width</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:background">@null</item>
+        <!--<item name="android:background">@drawable/bg_weiget_number_picker_value</item>-->
+    </style>
+</resources>
