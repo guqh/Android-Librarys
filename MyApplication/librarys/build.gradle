@@ -35,7 +35,7 @@ dependencies {
     compile 'com.zhy:autolayout:1.4.3'//屏幕适配
 
 //    https://github.com/JakeWharton/butterknife
-    compile 'com.jakewharton:butterknife:8.7.0' //注释
+    compile 'com.jakewharton:butterknife:7.0.1' //注释
 
 //    https://github.com/qiangxi/CheckUpdateLibrary
     compile 'com.qiangxi.checkupdatelibrary:checkupdatelibrary:1.1.3@aar' //Android检查更新库

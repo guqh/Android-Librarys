@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.john.myapplication">
 
+    <!-- 悬浮框权限 -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+
     <!-- 允许访问摄像头进行拍照 -->
     <uses-permission android:name="android.permission.CAMERA"/>
 
@@ -23,6 +26,21 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+
+
+        <service android:name="com.qiangxi.checkupdatelibrary.service.DownloadService"/>
+        <service android:name="com.john.librarys.floatwindow.FloatWindowService"/>
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.john.librarys"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/checkupdatelibrary_uri_grant"/>
+        </provider>
     </application>
 
 </manifest>
