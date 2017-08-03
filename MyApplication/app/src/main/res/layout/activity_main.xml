@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.john.myapplication.MainActivity">
+    android:orientation="vertical"
+    android:layout_height="match_parent">
 
 
     <Button
@@ -15,4 +16,20 @@
         android:text="打开"
         />
 
-</android.support.constraint.ConstraintLayout>
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="启动kotlinAnddatabinding Activity"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="86dp" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="启动DataBinding Activity"
+        tools:layout_editor_absoluteX="-2dp"
+        tools:layout_editor_absoluteY="199dp" />
+
+</LinearLayout>

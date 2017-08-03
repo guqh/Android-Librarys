@@ -8,4 +8,5 @@
     <item name="content_container" type="id"></item>
     <item name="pulltorefresh_view" type="id"></item>
 
+    <item name="dataBindingViewHolder" type="id"></item>
 </resources>

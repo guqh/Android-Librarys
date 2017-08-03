@@ -4,32 +4,49 @@
 
     <!-- 悬浮框权限 -->
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
-
     <!-- 允许访问摄像头进行拍照 -->
     <uses-permission android:name="android.permission.CAMERA"/>
-
     <!-- 拨打电话 -->
     <uses-permission android:name="android.permission.CALL_PHONE" />
+    <!--网络权限-->
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <!--往sdcard中写入数据的权限 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
+    <!--在sdcard中创建/删除文件的权限 -->
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"></uses-permission>
 
     <application
-        android:name=".App"
+        android:name=".application.MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+
+        <!--autoLayout屏幕适配 设计尺寸  start-->
+        <meta-data
+            android:name="design_width" android:value="768">
+        </meta-data>
+        <meta-data
+            android:name="design_height" android:value="1280">
+        </meta-data>
+        <!--autoLayout屏幕适配 设计尺寸  end-->
+
+        <activity android:name=".activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".activity.KotlinAndDataBindingActivity"/>
+        <activity android:name=".activity.DatabindingRecyclerActivity"/>
 
-
-
+        <!--检查升级 下载服务-->
         <service android:name="com.qiangxi.checkupdatelibrary.service.DownloadService"/>
+
+        <!--悬浮窗 服务-->
         <service android:name="com.john.librarys.floatwindow.FloatWindowService"/>
 
         <provider

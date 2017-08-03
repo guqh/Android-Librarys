@@ -21,13 +21,14 @@ import com.john.librarys.utils.permissions.PermissionsHelper;
 import com.john.librarys.uikit.dialog.LoadingDialogFragment;
 import com.john.librarys.utils.util.ACache;
 import com.john.librarys.utils.util.ExitHelper;
+import com.zhy.autolayout.AutoLayoutActivity;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import de.greenrobot.event.EventBus;
 
-public class BaseActivity extends AppCompatActivity {
+public class BaseActivity extends AutoLayoutActivity {
 
     private EventBus mEventBus = EventBus.getDefault();
     protected Context mContext;

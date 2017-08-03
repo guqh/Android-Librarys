@@ -1,4 +1,4 @@
-package com.john.myapplication;
+package com.john.myapplication.application;
 
 import android.app.Application;
 
@@ -12,7 +12,7 @@ import com.zhy.autolayout.config.AutoLayoutConifg;
  * Created by guqh on 2017/7/12.
  */
 
-public class App extends Application {
+public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
@@ -21,7 +21,7 @@ public class App extends Application {
             .configAllowLog(true)
             .configShowBorders(true); //初始化log打印
 
-        CrashHandler.getInstance().init(this); //初始化异常捕获
+//        CrashHandler.getInstance().init(this); //初始化异常捕获
 
         AutoLayoutConifg.getInstance().useDeviceSize(); //初始化自动适配
 

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/tools"
+    >
+
+    <data>
+        <variable
+            name="mUser"
+            type="com.john.myapplication.Bean.User"/>
+    </data>
+
+    <LinearLayout
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.john.librarys.uikit.widget.DraweeView
+            fresco:url="@{mUser.photo}"
+            fresco:placeholderImage="@mipmap/ic_launcher"
+            android:layout_width="300dp"
+            android:layout_height="300dp" />
+        <TextView
+            android:text="@{mUser.name}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+</layout>

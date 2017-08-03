@@ -1,4 +1,4 @@
-package com.john.myapplication;
+package com.john.myapplication.activity;
 
 import android.Manifest;
 import android.app.AlertDialog;
@@ -15,13 +15,20 @@ import com.apkfuns.logutils.LogUtils;
 import com.jakewharton.rxbinding.view.RxView;
 import com.john.librarys.floatwindow.FloatWindowService;
 import com.john.librarys.uikit.activity.BaseActivity;
+import com.john.myapplication.R;
 import com.tbruyelle.rxpermissions.Permission;
 import com.tbruyelle.rxpermissions.RxPermissions;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import rx.functions.Action1;
 
+/**
+ * Created by guqh on 2017/8/2.
+ *  权限处理
+ *  启用1像素悬浮窗 保活程序进程
+ */
 public class MainActivity extends BaseActivity {
 
     @Bind(R.id.enableCamera)
@@ -43,7 +50,7 @@ public class MainActivity extends BaseActivity {
         askForePrmission();
 
 
-        // 必须在初始化阶段调用,例如onCreate()方法中
+        // 权限处理 必须在初始化阶段调用,例如onCreate()方法中
         RxPermissions.getInstance(this)
                 .requestEach(Manifest.permission.CAMERA)
                 .subscribe(new Action1<Permission>() {
@@ -57,6 +64,7 @@ public class MainActivity extends BaseActivity {
                     }
                 });
 
+        //点击触发 权限处理
         RxView.clicks(enableCamera)
                 .compose(RxPermissions.getInstance(this).ensureEach(Manifest.permission.CAMERA))
                 .subscribe(new Action1<Permission>() {
@@ -64,6 +72,7 @@ public class MainActivity extends BaseActivity {
                     public void call(Permission permission) {
                         if (permission.granted) {
                             LogUtils.e("permission允许");
+                            showToast("已授权");
                         } else {
                             LogUtils.e("permission禁止");
                         }
@@ -86,6 +95,7 @@ public class MainActivity extends BaseActivity {
         }
     }
 
+    //弹窗提示 权限授权
     private void showDialog() {
         new AlertDialog.Builder(this).setCancelable(false).setTitle("应用权限授权").setMessage("请开启悬浮窗的权限，否则部分功能不能正常使用！").setPositiveButton("确定", new DialogInterface.OnClickListener() {
             @Override
@@ -96,6 +106,7 @@ public class MainActivity extends BaseActivity {
         }).show();
     }
 
+    //返回值判断悬浮窗权限是否授权成功
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == OVERLAY_PERMISSION_REQ_CODE) {
@@ -109,5 +120,14 @@ public class MainActivity extends BaseActivity {
                 }
             }
         }
+    }
+
+    @OnClick(R.id.button)
+    void openKotlinAndDataBindingActivity(){
+        startActivity(new Intent(mContext,KotlinAndDataBindingActivity.class));
+    }
+    @OnClick(R.id.button2)
+    void openDatabindingRecyclerActivity(){
+        startActivity(new Intent(mContext,DatabindingRecyclerActivity.class));
     }
 }
