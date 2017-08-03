@@ -1,5 +1,9 @@
 package com.john.librarys.utils.util;
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 134b005c9181e93638e722461191e34d6a35d5d5
 import android.view.View;
 
 /**
@@ -20,9 +24,14 @@ public class ClickHelper {
             return ;
         }
         lastClickTime = time;
+<<<<<<< HEAD
 
         view.setClickable(true);
     }
 
+=======
+>>>>>>> 134b005c9181e93638e722461191e34d6a35d5d5
 
+        view.setClickable(true);
+    }
 }
