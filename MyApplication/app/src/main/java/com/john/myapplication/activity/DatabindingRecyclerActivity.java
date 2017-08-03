@@ -2,15 +2,12 @@ package com.john.myapplication.activity;
 
 
 import android.databinding.DataBindingUtil;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.john.librarys.uikit.activity.BaseActivity;
-import com.john.librarys.uikit.widget.WrapContentLinearLayoutManager;
 import com.john.myapplication.Bean.User;
 import com.john.myapplication.R;
-import com.john.myapplication.adapter.DatabindingRecyclerAdapter;
-import com.john.myapplication.adapter.SimpleRecucleAdapter;
+import com.john.myapplication.adapter.DatabindingRecycleViewAdapter;
 import com.john.myapplication.databinding.ActivityDatabindingRecyclerBinding;
 
 import java.util.ArrayList;
@@ -41,8 +38,7 @@ public class DatabindingRecyclerActivity extends BaseActivity {
         mDatabinding.setUser(mUser);
 
 
-//        recycleview.setLayoutManager(new WrapContentLinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        DatabindingRecyclerAdapter mAdapter=new DatabindingRecyclerAdapter(mContext);
+        DatabindingRecycleViewAdapter mAdapter=new DatabindingRecycleViewAdapter(mContext);
 //        SimpleRecucleAdapter mAdapter=new SimpleRecucleAdapter(mContext);
         recycleview.setAdapter(mAdapter);
 
@@ -66,8 +62,6 @@ public class DatabindingRecyclerActivity extends BaseActivity {
         //==================模拟数据==========================//
 
 
-        mAdapter.clear();
-        mAdapter.addItems(mList);
-        mAdapter.notifyDataSetChanged();
+        mAdapter.notifyDataSetChanged(mList);
     }
 }

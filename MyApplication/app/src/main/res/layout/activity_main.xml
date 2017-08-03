@@ -28,7 +28,14 @@
         android:id="@+id/button2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="启动DataBinding Activity"
+        android:text="启动DataBinding recycleView Activity"
+        tools:layout_editor_absoluteX="-2dp"
+        tools:layout_editor_absoluteY="199dp" />
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="启动DataBinding Listview Activity"
         tools:layout_editor_absoluteX="-2dp"
         tools:layout_editor_absoluteY="199dp" />
 

@@ -32,7 +32,6 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
-
         />
 
     </LinearLayout>

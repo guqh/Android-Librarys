@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="data"
+            type="String"/>
+    </data>
+    <com.john.librarys.uikit.widget.DraweeView
+        android:id="@+id/dv"
+        android:layout_width="200px"
+        app:url="@{data}"
+        fresco:placeholderImage="@mipmap/ic_launcher"
+        android:layout_height="200px"
+        />
+
+</layout>

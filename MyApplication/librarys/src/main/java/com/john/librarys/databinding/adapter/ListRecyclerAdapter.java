@@ -20,6 +20,10 @@ public abstract class ListRecyclerAdapter<T> extends RecyclerView.Adapter implem
     Context mContext;
     List<T> mItems = new ArrayList<T>();
 
+    public void notifyDataSetChanged(List<T> data){
+        this.mItems = data;
+        super.notifyDataSetChanged();
+    }
 
     public ListRecyclerAdapter(Context context) {
         super();

@@ -42,6 +42,7 @@
         </activity>
         <activity android:name=".activity.KotlinAndDataBindingActivity"/>
         <activity android:name=".activity.DatabindingRecyclerActivity"/>
+        <activity android:name=".activity.DatabindingListViewActivity"/>
 
         <!--检查升级 下载服务-->
         <service android:name="com.qiangxi.checkupdatelibrary.service.DownloadService"/>

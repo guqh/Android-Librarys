@@ -130,4 +130,8 @@ public class MainActivity extends BaseActivity {
     void openDatabindingRecyclerActivity(){
         startActivity(new Intent(mContext,DatabindingRecyclerActivity.class));
     }
+    @OnClick(R.id.button3)
+    void openDatabindinglistviewActivity(){
+        startActivity(new Intent(mContext,DatabindingListViewActivity.class));
+    }
 }
