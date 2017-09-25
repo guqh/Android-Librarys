@@ -223,9 +223,9 @@ public class CrashHandler implements UncaughtExceptionHandler {
         return fileName;
     }
 
-    public static String getGlobalpath() {
+    public  String getGlobalpath() {
         return Environment.getExternalStorageDirectory().getAbsolutePath()
-                + File.separator + "crash" + File.separator;
+                + File.separator + mContext.getResources().getString(R.string.app_name) + File.separator+ "crash" + File.separator;
     }
 
     public static void setTag(String tag) {

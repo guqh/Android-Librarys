@@ -7,8 +7,11 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.provider.Settings;
+import android.view.View;
 import android.widget.Button;
+import android.widget.Chronometer;
 import android.widget.Toast;
 
 import com.apkfuns.logutils.LogUtils;
@@ -33,6 +36,8 @@ public class MainActivity extends BaseActivity {
 
     @Bind(R.id.enableCamera)
     Button enableCamera;
+    @Bind(R.id.chronometer)
+    Chronometer chronometer;
 
     private Intent floatIntent;
     public static int OVERLAY_PERMISSION_REQ_CODE = 1234;
@@ -51,13 +56,15 @@ public class MainActivity extends BaseActivity {
 
 
         // 权限处理 必须在初始化阶段调用,例如onCreate()方法中
-        RxPermissions.getInstance(this)
+        new RxPermissions(this)
                 .requestEach(Manifest.permission.CAMERA)
                 .subscribe(new Action1<Permission>() {
                     @Override
                     public void call(Permission permission) {
                         if (permission.granted) {
                             LogUtils.e("permission允许");
+                        } else if (permission.shouldShowRequestPermissionRationale){
+                            LogUtils.e("permission用户拒绝了该权限，没有选中『不再询问』");
                         } else {
                             LogUtils.e("permission禁止");
                         }
@@ -66,18 +73,23 @@ public class MainActivity extends BaseActivity {
 
         //点击触发 权限处理
         RxView.clicks(enableCamera)
-                .compose(RxPermissions.getInstance(this).ensureEach(Manifest.permission.CAMERA))
+                .compose(new RxPermissions(this).ensureEach(Manifest.permission.CAMERA))
                 .subscribe(new Action1<Permission>() {
                     @Override
                     public void call(Permission permission) {
                         if (permission.granted) {
                             LogUtils.e("permission允许");
                             showToast("已授权");
+                        } else if (permission.shouldShowRequestPermissionRationale){
+                            LogUtils.e("permission用户拒绝了该权限，没有选中『不再询问』");
+                            showToast("已拒绝");
                         } else {
                             LogUtils.e("permission禁止");
+                            showToast("已禁止");
                         }
                     }
                 });
+
     }
 
     /**
@@ -134,4 +146,23 @@ public class MainActivity extends BaseActivity {
     void openDatabindinglistviewActivity(){
         startActivity(new Intent(mContext,DatabindingListViewActivity.class));
     }
+
+    @OnClick({R.id.btnStart,R.id.btnStop,R.id.btnReset,R.id.btn_format})
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.btnStart:
+                chronometer.start();// 开始计时
+                break;
+            case R.id.btnStop:
+                chronometer.stop();// 停止计时
+                break;
+            case R.id.btnReset:
+                chronometer.setBase(SystemClock.elapsedRealtime());// 复位
+                break;
+            case R.id.btn_format:
+                chronometer.setFormat("Time：%s");// 更改时间显示格式
+                break;
+        }
+    }
+
 }

@@ -21,7 +21,7 @@ public class MyApplication extends Application {
             .configAllowLog(true)
             .configShowBorders(true); //初始化log打印
 
-//        CrashHandler.getInstance().init(this); //初始化异常捕获
+        CrashHandler.getInstance().init(this); //初始化异常捕获
 
         AutoLayoutConifg.getInstance().useDeviceSize(); //初始化自动适配
 
