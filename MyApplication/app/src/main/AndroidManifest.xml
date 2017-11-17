@@ -2,6 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.john.myapplication">
 
+    <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
+
+    <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT"/>
+
+    <uses-permission android:name="android.permission.GET_TASKS"/>
+
     <!-- 悬浮框权限 -->
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <!-- 允许访问摄像头进行拍照 -->
@@ -24,6 +30,18 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
+        <!--数据库-->
+        <meta-data
+            android:name="AA_DB_NAME"
+            android:value="Store.db"/>
+        <meta-data
+            android:name="AA_DB_VERSION"
+            android:value="1"/>
+        <meta-data
+            android:name="AA_MODELS"
+            android:value="com.john.myapplication.bean.Category,
+            com.john.myapplication.bean.Category.Item" />
+
         <!--autoLayout屏幕适配 设计尺寸  start-->
         <meta-data
             android:name="design_width" android:value="768">
@@ -33,13 +51,36 @@
         </meta-data>
         <!--autoLayout屏幕适配 设计尺寸  end-->
 
+
         <activity android:name=".activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!--动态图片修改-->
+        <activity-alias
+            android:name=".Test11"
+            android:enabled="false"
+            android:icon="@mipmap/s11"
+            android:targetActivity="com.john.myapplication.activity.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity-alias>
+        <activity-alias
+            android:name=".Test12"
+            android:enabled="false"
+            android:icon="@mipmap/s12"
+            android:targetActivity="com.john.myapplication.activity.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity-alias>
+
         <activity android:name=".activity.KotlinAndDataBindingActivity"/>
         <activity android:name=".activity.DatabindingRecyclerActivity"/>
         <activity android:name=".activity.DatabindingListViewActivity"/>

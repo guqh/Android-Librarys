@@ -44,6 +44,7 @@ public class CrashHandler implements UncaughtExceptionHandler {
 
     private static CrashHandler instance = new CrashHandler();
     private Context mContext;
+    private String appName;
 
     // 用来存储设备信息和异常信息
     private Map<String, String> infos = new HashMap<String, String>();
@@ -66,8 +67,9 @@ public class CrashHandler implements UncaughtExceptionHandler {
      *
      * @param context
      */
-    public void init(Context context) {
+    public void init(Context context,String appStr) {
         mContext = context;
+        appName=appStr;
         // 获取系统默认的UncaughtException处理器
         mDefaultHandler = Thread.getDefaultUncaughtExceptionHandler();
         // 设置该CrashHandler为程序的默认处理器
@@ -192,8 +194,8 @@ public class CrashHandler implements UncaughtExceptionHandler {
 
             String fileName = writeFile(sb.toString());
 
-            LogUtils.e("文件bug",sb.toString());
-            LogUtils.e("文件",fileName);
+            LogUtils.e(sb.toString());
+            LogUtils.e(fileName);
             return fileName;
         } catch (Exception e) {
             Log.e(TAG, "an error occured while writing file...", e);
@@ -206,7 +208,7 @@ public class CrashHandler implements UncaughtExceptionHandler {
 
     private String writeFile(String sb) throws Exception {
         String time = formatter.format(new Date());
-        String fileName = mContext.getResources().getString(R.string.app_name) + "-crash-" + time + ".log";
+        String fileName = appName + "-crash-" + time + ".log";
         if (FileUtil.hasSdcard()) {
             path = getGlobalpath();
         } else {// 如果SD卡不存在，就保存到本应用的目录下
@@ -225,7 +227,7 @@ public class CrashHandler implements UncaughtExceptionHandler {
 
     public  String getGlobalpath() {
         return Environment.getExternalStorageDirectory().getAbsolutePath()
-                + File.separator + mContext.getResources().getString(R.string.app_name) + File.separator+ "crash" + File.separator;
+                + File.separator + appName + File.separator+ "crash" + File.separator;
     }
 
     public static void setTag(String tag) {

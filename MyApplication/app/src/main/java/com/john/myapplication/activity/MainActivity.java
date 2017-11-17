@@ -1,9 +1,13 @@
 package com.john.myapplication.activity;
 
 import android.Manifest;
+import android.app.ActivityManager;
 import android.app.AlertDialog;
+import android.content.ComponentName;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -18,9 +22,12 @@ import com.apkfuns.logutils.LogUtils;
 import com.jakewharton.rxbinding.view.RxView;
 import com.john.librarys.floatwindow.FloatWindowService;
 import com.john.librarys.uikit.activity.BaseActivity;
+import com.john.librarys.utils.ContextManager;
 import com.john.myapplication.R;
 import com.tbruyelle.rxpermissions.Permission;
 import com.tbruyelle.rxpermissions.RxPermissions;
+
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -50,6 +57,9 @@ public class MainActivity extends BaseActivity {
         setWillDoubleClickExitApp(true);
         ButterKnife.bind(this);
 
+        //初始化 动态更新 图标
+        initS11AndS12();
+
         //启动1像素悬浮窗
         floatIntent=new Intent(this, FloatWindowService.class);
         askForePrmission();
@@ -57,7 +67,14 @@ public class MainActivity extends BaseActivity {
 
         // 权限处理 必须在初始化阶段调用,例如onCreate()方法中
         new RxPermissions(this)
-                .requestEach(Manifest.permission.CAMERA)
+                .requestEach(Manifest.permission.CAMERA,
+                        Manifest.permission.KILL_BACKGROUND_PROCESSES,
+                        Manifest.permission.GET_TASKS,
+                        Manifest.permission.SYSTEM_ALERT_WINDOW,
+                        Manifest.permission.CALL_PHONE,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        Manifest.permission.MOUNT_UNMOUNT_FILESYSTEMS,
+                        Manifest.permission.INSTALL_SHORTCUT)
                 .subscribe(new Action1<Permission>() {
                     @Override
                     public void call(Permission permission) {
@@ -73,7 +90,15 @@ public class MainActivity extends BaseActivity {
 
         //点击触发 权限处理
         RxView.clicks(enableCamera)
-                .compose(new RxPermissions(this).ensureEach(Manifest.permission.CAMERA))
+                .compose(new RxPermissions(this).ensureEach(
+                        Manifest.permission.KILL_BACKGROUND_PROCESSES,
+                        Manifest.permission.CAMERA,
+                        Manifest.permission.GET_TASKS,
+                        Manifest.permission.SYSTEM_ALERT_WINDOW,
+                        Manifest.permission.CALL_PHONE,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        Manifest.permission.MOUNT_UNMOUNT_FILESYSTEMS,
+                        Manifest.permission.INSTALL_SHORTCUT))
                 .subscribe(new Action1<Permission>() {
                     @Override
                     public void call(Permission permission) {
@@ -144,7 +169,8 @@ public class MainActivity extends BaseActivity {
     }
     @OnClick(R.id.button3)
     void openDatabindinglistviewActivity(){
-        startActivity(new Intent(mContext,DatabindingListViewActivity.class));
+//        startActivity(new Intent(mContext,DatabindingListViewActivity.class));
+        ContextManager.startActivity(mContext,DatabindingListViewActivity.class);
     }
 
     @OnClick({R.id.btnStart,R.id.btnStop,R.id.btnReset,R.id.btn_format})
@@ -165,4 +191,45 @@ public class MainActivity extends BaseActivity {
         }
     }
 
+    //=========================================图标动态更换==================================
+    private ComponentName mDefault;
+    private ComponentName mDouble11;
+    private ComponentName mDouble12;
+    private PackageManager mPm;
+
+    private void initS11AndS12(){
+        mPm = getApplicationContext().getPackageManager();
+        mDefault=getComponentName();
+        mDouble11=new ComponentName(getBaseContext(),"com.john.myapplication.Test11");
+        mDouble12=new ComponentName(getBaseContext(),"com.john.myapplication.Test12");
+    }
+    private void enableComponent(ComponentName componentName) {
+        mPm.setComponentEnabledSetting(componentName,PackageManager.COMPONENT_ENABLED_STATE_ENABLED,PackageManager.DONT_KILL_APP);
+        //Intent 重启 Launcher 应用
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        intent.addCategory(Intent.CATEGORY_DEFAULT);
+        List<ResolveInfo> resolves = mPm.queryIntentActivities(intent, 0);
+        for (ResolveInfo res : resolves) {
+            if (res.activityInfo != null) {
+                ActivityManager am = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
+                am.killBackgroundProcesses(res.activityInfo.packageName);
+            }
+        }
+    }
+    private void disableComponent(ComponentName componentName) {
+        mPm.setComponentEnabledSetting(componentName,PackageManager.COMPONENT_ENABLED_STATE_DISABLED,PackageManager.DONT_KILL_APP);
+    }
+    @OnClick(R.id.s11)
+    void onS11(){
+        disableComponent(mDefault);
+        disableComponent(mDouble12);
+        enableComponent(mDouble11);
+    }
+    @OnClick(R.id.s12)
+    void onS12(){
+        disableComponent(mDefault);
+        disableComponent(mDouble11);
+        enableComponent(mDouble12);
+    }
 }
