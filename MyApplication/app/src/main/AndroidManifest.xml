@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.john.myapplication">
 
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+
     <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
 
     <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT"/>
@@ -52,7 +54,7 @@
         <!--autoLayout屏幕适配 设计尺寸  end-->
 
 
-        <activity android:name=".activity.MainActivity">
+        <activity android:name=".activity.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -64,7 +66,7 @@
             android:name=".Test11"
             android:enabled="false"
             android:icon="@mipmap/s11"
-            android:targetActivity="com.john.myapplication.activity.MainActivity">
+            android:targetActivity="com.john.myapplication.activity.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
@@ -74,7 +76,7 @@
             android:name=".Test12"
             android:enabled="false"
             android:icon="@mipmap/s12"
-            android:targetActivity="com.john.myapplication.activity.MainActivity">
+            android:targetActivity="com.john.myapplication.activity.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
@@ -84,6 +86,12 @@
         <activity android:name=".activity.KotlinAndDataBindingActivity"/>
         <activity android:name=".activity.DatabindingRecyclerActivity"/>
         <activity android:name=".activity.DatabindingListViewActivity"/>
+        <activity android:name=".activity.MainActivity"/>
+        <activity android:name=".activity.OpenGlActivity"/>
+        <activity android:name=".activity.GoogleVRActivity"/>
+        <activity android:name=".activity.WebViewActivity"/>
+        <activity android:name=".activity.RecycleViewRefreshActivity"/>
+        <activity android:name=".activity.StepViewActivity"/>
 
         <!--检查升级 下载服务-->
         <service android:name="com.qiangxi.checkupdatelibrary.service.DownloadService"/>

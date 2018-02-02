@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:fresco="http://schemas.android.com/tools"
-    >
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
         <variable
@@ -17,7 +17,9 @@
 
         <com.john.librarys.uikit.widget.DraweeView
             fresco:url="@{mUser.photo}"
-            fresco:placeholderImage="@mipmap/ic_launcher"
+            app:placeholderImage="@mipmap/ic_launcher"
+            app:placeholderImageScaleType="fitCenter"
+            app:actualImageScaleType="centerCrop"
             android:layout_width="300dp"
             android:layout_height="300dp" />
         <TextView

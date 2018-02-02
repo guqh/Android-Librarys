@@ -21,4 +21,6 @@ class KotlinAndDataBindingActivity : BaseActivity() {
         mUser.photo="http://wx.zshisong.com:8085/imgServer/upload/pic/02f3b3322a844014923453e95806f8a2.jpg"
         binding.mUser=mUser
     }
+
+
 }

@@ -1,8 +1,8 @@
 package com.john.librarys.uikit.fragment;
 
+import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -109,40 +109,35 @@ public abstract class BaseFragment extends Fragment {
         //各种状态处理
     }
 
-    protected LoadingDialogFragment mLoadingDialog;
-
-    public LoadingDialogFragment showLoadingDialog() {
-        return showLoadingDialog(null);
+    private boolean outCancel = false;
+    public boolean isOutCancel() {
+        return outCancel;
     }
 
-    public LoadingDialogFragment getLoadingDialog() {
-        return mLoadingDialog;
+    public void setOutCancel(boolean outCancel) {
+        this.outCancel = outCancel;
     }
-
     /**
      * 显示加载框
      *
      * @param task
      */
-    public LoadingDialogFragment showLoadingDialog(ServiceTask task) {
-        if (mLoadingDialog == null) {
-            mLoadingDialog = generateLoadingDialogFragment();
-        }
-        if (task != null) {
-            mLoadingDialog.addServiceTask(task);
-        }
-        mLoadingDialog.show(getFragmentManager());
-        return mLoadingDialog;
+    public void showLoadingDialog(ServiceTask task) {
+        LoadingDialogFragment.showLoading(getActivity(),task);
+    }
+    public void showLoadingDialog(String msg) {
+        LoadingDialogFragment.showLoading(getActivity(), msg);
+    }
+    public void showLoadingDialog() {
+        LoadingDialogFragment.showLoading(getActivity());
+    }
+
+    public void dismissLoadingDialog() {
+        LoadingDialogFragment.dismissDialog();
+
     }
 
 
-    /**
-     * 生成新的loadingdialog
-     * @return
-     */
-    protected LoadingDialogFragment generateLoadingDialogFragment(){
-        return  new LoadingDialogFragment();
-    }
 
 
     //------ 隐藏容器-------

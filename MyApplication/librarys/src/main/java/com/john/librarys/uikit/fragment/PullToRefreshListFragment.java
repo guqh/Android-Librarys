@@ -33,9 +33,7 @@ public abstract class PullToRefreshListFragment<T> extends BaseFragment implemen
         public void updateData(PullToRefreshBase refreshView, DynamicListAdapter adapter, boolean clear) {
             ServiceTask task = PullToRefreshListFragment.this.getServiceTask(refreshView, adapter);
             task.addOnCompleteListener(PullToRefreshListFragment.this);
-            if (getLoadingDialog() != null) {
-                getLoadingDialog().addServiceTask(task);
-            }
+            showLoadingDialog(task);
             PullToRefreshListFragment.this.updateData(task, clear);
         }
 

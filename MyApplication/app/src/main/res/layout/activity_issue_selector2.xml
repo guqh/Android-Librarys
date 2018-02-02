@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="50px"
+    android:fitsSystemWindows="true">
+
+    <LinearLayout
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="100px"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/fabu_popup_dongtai"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:visibility="gone"
+            android:drawablePadding="6dp"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:drawableTop="@mipmap/ic_launcher"
+            android:text="动态" />
+
+        <TextView
+            android:id="@+id/fabu_popup_changdi"
+            android:visibility="gone"
+            android:layout_marginLeft="120px"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:drawablePadding="6dp"
+            android:drawableTop="@mipmap/ic_launcher"
+            android:text="项目" />
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/fabu_popup_close_img"
+        android:layout_width="wrap_content"
+        android:layout_height="80px"
+        android:visibility="gone"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:src="@mipmap/fabuquxiao" />
+
+</RelativeLayout>

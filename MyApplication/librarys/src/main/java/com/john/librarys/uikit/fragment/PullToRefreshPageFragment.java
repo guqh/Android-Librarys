@@ -35,9 +35,7 @@ public abstract class PullToRefreshPageFragment<T> extends BaseFragment {
     protected PullToRefreshPageHelper<T> mPageHelper = new PullToRefreshPageHelper<T>() {
         @Override
         public void startTask(Date timestamp, int pageNo, ServiceTask<PageResult<T>> task) {
-            if (getLoadingDialog() != null) {
-                getLoadingDialog().addServiceTask(task);
-            }
+            showLoadingDialog(task);
             PullToRefreshPageFragment.this.startTask(timestamp, pageNo, task);
         }
 

@@ -1,0 +1,29 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="10dip"
+        android:id="@+id/main_layout"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/title"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="@color/colorAccent"
+            android:text="第二种谷歌官方VR演示"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content" />
+
+        <com.google.vr.sdk.widgets.pano.VrPanoramaView
+            android:id="@+id/mVrPanoramaView"
+            android:layout_width="match_parent"
+            android:layout_height="250dip"/>
+
+
+    </LinearLayout>
+</ScrollView>

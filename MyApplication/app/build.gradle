@@ -12,7 +12,7 @@ android {
     buildToolsVersion "26.0.0"
     defaultConfig {
         applicationId "com.john.myapplication"
-        minSdkVersion 16
+        minSdkVersion 19
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
@@ -65,7 +65,11 @@ android {
             }
         }
     }
-
+    repositories {
+        mavenCentral()
+        maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+        maven { url 'https://jitpack.io' }
+    }
 }
 
 dependencies {
@@ -80,14 +84,19 @@ dependencies {
 
     compile project(':librarys')
 
-//    当同时使用kotlin 和 databinding 需要添加 kapt
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
-    kapt "com.android.databinding:compiler:$android_plugin_version"
+    //    https://github.com/baoyachi/StepView  流程view
+    compile 'com.github.baoyachi:StepView:1.9'
 
     //    数据库工具
     compile 'com.michaelpardo:activeandroid:3.1.0-SNAPSHOT'
-}
-repositories {
-    mavenCentral()
-    maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+
+    //open GL 全景图像
+    compile 'com.github.CN-ZPH:weibo360panorama:v1.0.1'
+
+    //Google VR  全景图像
+    compile 'com.google.vr:sdk-panowidget:1.80.0'
+
+//    当同时使用kotlin 和 databinding 需要添加 kapt
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    kapt "com.android.databinding:compiler:$android_plugin_version"
 }

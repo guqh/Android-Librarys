@@ -1,99 +1,171 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<com.zhy.autolayout.AutoRelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:orientation="vertical"
     android:layout_height="match_parent">
 
-
-    <Button
-        android:id="@+id/enableCamera"
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="16dp"
-        android:text="打开"
-        />
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="50px"
+        android:src="@android:drawable/ic_lock_lock" />
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="启动kotlinAnddatabinding Activity"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="86dp" />
-
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="启动DataBinding recycleView Activity"
-        tools:layout_editor_absoluteX="-2dp"
-        tools:layout_editor_absoluteY="199dp" />
-    <Button
-        android:id="@+id/button3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="启动DataBinding Listview Activity"
-        tools:layout_editor_absoluteX="-2dp"
-        tools:layout_editor_absoluteY="199dp" />
-
-    <Chronometer
-        android:id="@+id/chronometer"
-        android:textColor="@color/red"
-        android:textSize="60sp"
-        android:gravity="center"
+    <com.zhy.autolayout.AutoLinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dip"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/btnStart"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="开始记时" />
-
-        <Button
-            android:id="@+id/btnStop"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="停止记时" />
-
-        <Button
-            android:id="@+id/btnReset"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="重置" />
-
-        <Button
-            android:id="@+id/btn_format"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="格式化" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:padding="20dp"
         android:orientation="vertical"
-        android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <com.zhy.autolayout.AutoLinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <Button
+                android:id="@+id/enableCamera"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="16dp"
+                android:text="获取权限"
+                />
+            <Button
+                android:id="@+id/recycl_refresh"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="16dp"
+                android:text="打开recycl_refresh"
+                />
+            <Button
+                android:id="@+id/opengl"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="16dp"
+                android:text="打开OpenGL"
+                />
+            <Button
+                android:id="@+id/openvr"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="16dp"
+                android:text="打开GoogleVR"
+                />
+            <Button
+                android:id="@+id/openweb"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="16dp"
+                android:text="打开Web"
+                />
+        </com.zhy.autolayout.AutoLinearLayout>
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
         <Button
-            android:id="@+id/s11"
-            android:text="双11图标"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:id="@+id/button"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="启动kotlinAnddatabinding Activity"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="86dp" />
+
         <Button
-            android:id="@+id/s12"
-            android:text="双12图标"
-            android:layout_width="wrap_content"
+            android:id="@+id/button2"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="启动DataBinding recycleView Activity"
+            tools:layout_editor_absoluteX="-2dp"
+            tools:layout_editor_absoluteY="199dp" />
+        <Button
+            android:id="@+id/button3"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="启动DataBinding Listview Activity"
+            tools:layout_editor_absoluteX="-2dp"
+            tools:layout_editor_absoluteY="199dp" />
+        <Button
+            android:id="@+id/button4"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="启动StepView Activity"
+            tools:layout_editor_absoluteX="-2dp"
+            tools:layout_editor_absoluteY="199dp" />
+    </com.zhy.autolayout.AutoLinearLayout>
+
+        <Chronometer
+            android:id="@+id/chronometer"
+            android:textColor="@color/red"
+            android:textSize="60sp"
+            android:gravity="center"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content" />
-    </LinearLayout>
-</LinearLayout>
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dip"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnStart"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="开始记时" />
+
+            <Button
+                android:id="@+id/btnStop"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="停止记时" />
+
+            <Button
+                android:id="@+id/btnReset"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="重置" />
+
+            <Button
+                android:id="@+id/btn_format"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="格式化" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:visibility="gone"
+            android:padding="20dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <Button
+                android:id="@+id/s11"
+                android:text="双11图标"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <Button
+                android:id="@+id/s12"
+                android:text="双12图标"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+    </com.zhy.autolayout.AutoLinearLayout>
+
+</com.zhy.autolayout.AutoRelativeLayout>

@@ -7,5 +7,7 @@
     <string name="error_network_error">网络访问出错</string>
     <string name="error_network_not_available">当前网络不可用</string>
 
+    <string name="modify_num">修改数量</string>
+
     <string name="tag_text">tag</string>
 </resources>

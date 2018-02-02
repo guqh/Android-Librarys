@@ -11,6 +11,7 @@
     <color name="secondary_text">#727272</color>
     <color name="icons">#F8F8F8</color>
     <color name="divider">#B6B6B6</color>
+    <color name="transparent">#0000</color>
 
     <color name="text_normal">#666666</color>
     <color name="info">#58bfe7</color>

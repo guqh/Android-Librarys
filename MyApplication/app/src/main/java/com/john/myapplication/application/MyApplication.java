@@ -7,6 +7,7 @@ import com.apkfuns.logutils.LogUtils;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.john.librarys.net.core.ApiHttpClient;
 import com.john.librarys.utils.util.CrashHandler;
+import com.john.librarys.utils.util.DialogHelper;
 import com.john.myapplication.R;
 import com.zhy.autolayout.config.AutoLayoutConifg;
 

@@ -4,18 +4,30 @@ import android.Manifest;
 import android.app.ActivityManager;
 import android.app.AlertDialog;
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.SystemClock;
 import android.provider.Settings;
+import android.util.DisplayMetrics;
+import android.view.Gravity;
+import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.Chronometer;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.apkfuns.logutils.LogUtils;
@@ -23,6 +35,8 @@ import com.jakewharton.rxbinding.view.RxView;
 import com.john.librarys.floatwindow.FloatWindowService;
 import com.john.librarys.uikit.activity.BaseActivity;
 import com.john.librarys.utils.ContextManager;
+import com.john.librarys.utils.util.DialogHelper;
+import com.john.myapplication.MyConstants;
 import com.john.myapplication.R;
 import com.tbruyelle.rxpermissions.Permission;
 import com.tbruyelle.rxpermissions.RxPermissions;
@@ -48,6 +62,9 @@ public class MainActivity extends BaseActivity {
 
     private Intent floatIntent;
     public static int OVERLAY_PERMISSION_REQ_CODE = 1234;
+    private LayoutInflater layoutInflater;
+    private DisplayMetrics dm;
+    private PopupWindow fabuYijiPopup;
 
 
     @Override
@@ -56,6 +73,8 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
         setWillDoubleClickExitApp(true);
         ButterKnife.bind(this);
+
+//        showLoadingDialog("哈哈哈哈");
 
         //初始化 动态更新 图标
         initS11AndS12();
@@ -68,6 +87,7 @@ public class MainActivity extends BaseActivity {
         // 权限处理 必须在初始化阶段调用,例如onCreate()方法中
         new RxPermissions(this)
                 .requestEach(Manifest.permission.CAMERA,
+                        Manifest.permission.READ_EXTERNAL_STORAGE,
                         Manifest.permission.KILL_BACKGROUND_PROCESSES,
                         Manifest.permission.GET_TASKS,
                         Manifest.permission.SYSTEM_ALERT_WINDOW,
@@ -91,6 +111,7 @@ public class MainActivity extends BaseActivity {
         //点击触发 权限处理
         RxView.clicks(enableCamera)
                 .compose(new RxPermissions(this).ensureEach(
+                        Manifest.permission.READ_EXTERNAL_STORAGE,
                         Manifest.permission.KILL_BACKGROUND_PROCESSES,
                         Manifest.permission.CAMERA,
                         Manifest.permission.GET_TASKS,
@@ -159,6 +180,33 @@ public class MainActivity extends BaseActivity {
         }
     }
 
+    @OnClick(R.id.openweb)
+    void openWebViewActivity(){
+        String url = "http://720yun.com/t/739j5rkOtv6?pano_id=6999722";
+        Intent intent= new Intent(mContext,WebViewActivity.class);
+        intent.putExtra(MyConstants.EXTRA_URL,url);
+        startActivity(intent);
+    }
+    @OnClick(R.id.fab)
+    void openIssueSelectorActivity(){
+        layoutInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        dm = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(dm);
+        showYijiFabu(findViewById(R.id.fab));
+
+    }
+    @OnClick(R.id.recycl_refresh)
+    void openRecycleViewRefreshActivity(){
+        startActivity(new Intent(mContext,RecycleViewRefreshActivity.class));
+    }
+    @OnClick(R.id.openvr)
+    void openGoogleVRActivity(){
+        startActivity(new Intent(mContext,GoogleVRActivity.class));
+    }
+    @OnClick(R.id.opengl)
+    void openOpenGlActivity(){
+        startActivity(new Intent(mContext,OpenGlActivity.class));
+    }
     @OnClick(R.id.button)
     void openKotlinAndDataBindingActivity(){
         startActivity(new Intent(mContext,KotlinAndDataBindingActivity.class));
@@ -171,6 +219,10 @@ public class MainActivity extends BaseActivity {
     void openDatabindinglistviewActivity(){
 //        startActivity(new Intent(mContext,DatabindingListViewActivity.class));
         ContextManager.startActivity(mContext,DatabindingListViewActivity.class);
+    }
+    @OnClick(R.id.button4)
+    void openStepViewActivity(){
+        ContextManager.startActivity(mContext,StepViewActivity.class);
     }
 
     @OnClick({R.id.btnStart,R.id.btnStop,R.id.btnReset,R.id.btn_format})
@@ -231,5 +283,82 @@ public class MainActivity extends BaseActivity {
         disableComponent(mDefault);
         disableComponent(mDouble11);
         enableComponent(mDouble12);
+    }
+
+
+
+
+
+
+//悬浮按钮 启动窗口
+    TextView fabu_popup_dongtai;
+    TextView fabu_popup_changdi;
+    ImageView fabu_popup_close_img;
+    private void showYijiFabu(View parent) {
+        View yijiView = layoutInflater.inflate(R.layout.fabu_popwindow_layout, null);
+        fabu_popup_dongtai= yijiView.findViewById(R.id.fabu_popup_dongtai);
+        fabu_popup_changdi= yijiView.findViewById(R.id.fabu_popup_changdi);
+        fabu_popup_close_img= yijiView.findViewById(R.id.fabu_popup_close_img);
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                fabu_popup_dongtai.startAnimation(AnimationUtils.loadAnimation(mContext,R.anim.pop_btn_in));
+                fabu_popup_dongtai.setVisibility(View.VISIBLE);
+
+                fabu_popup_changdi.startAnimation(AnimationUtils.loadAnimation(mContext,R.anim.pop_btn_in2));
+                fabu_popup_changdi.setVisibility(View.VISIBLE);
+
+                fabu_popup_close_img.startAnimation(AnimationUtils.loadAnimation(mContext,R.anim.anim_rotate));
+                fabu_popup_close_img.setVisibility(View.VISIBLE);
+            }
+        },300);
+
+        // 创建一个PopuWidow对象
+        if (fabuYijiPopup == null) {
+            fabuYijiPopup = new PopupWindow(yijiView, dm.widthPixels, LinearLayout.LayoutParams.MATCH_PARENT);
+        }
+        fabuYijiPopup.setAnimationStyle(R.style.popWindow_animation_in2out);
+
+        fabuYijiPopup.setFocusable(true);
+        // 设置允许在外点击消失
+//        fabuYijiPopup.setOutsideTouchable(true);
+        // 设置背景，这个是为了点击“返回Back”也能使其消失，并且并不会影响你的背景
+//        fabuYijiPopup.setBackgroundDrawable(new BitmapDrawable());
+        // PopupWindow的显示及位置设置
+        fabuYijiPopup.showAtLocation(parent, Gravity.CENTER, 0, -500);
+
+        fabu_popup_dongtai.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        fabuYijiPopup.dismiss();
+                        DialogHelper.showDialogOne("hahahah");
+                    }
+                });
+        fabu_popup_changdi.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        fabuYijiPopup.dismiss();
+                        DialogHelper.showNumDialog(mContext,"这是标题","666",new DialogHelper.MyOnKeyListner(){
+                            @Override
+                            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                                if (keyCode == KeyEvent.KEYCODE_ENTER) {
+                                    DialogHelper.dismissDialog();
+                                    showToast(editText.getText().toString());
+                                }
+                                return super.onKey(v, keyCode, event);
+                            }
+                        });
+                    }
+                });
+        fabu_popup_close_img.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        fabuYijiPopup.dismiss();
+                        fabuYijiPopup=null;                    }
+                });
     }
 }

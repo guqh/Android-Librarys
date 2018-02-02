@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical"
+              android:padding="10dp">
+
+    <TextView
+        android:id="@+id/table_remark_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/modify_num"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/gaps_line"/>
+
+    <EditText
+        android:id="@+id/table_remark_et"
+        android:layout_width="match_parent"
+        android:paddingLeft="5dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/input_guest_num_bg"
+        android:inputType="numberDecimal"
+        android:maxLength="10"
+        android:lines="1"
+        android:maxLines="1"
+        />
+
+</LinearLayout>

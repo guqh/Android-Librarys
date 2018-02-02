@@ -10,7 +10,9 @@
 
     <com.john.librarys.uikit.widget.DraweeView
         android:layout_width="200px"
-        fresco:placeholderImage="@mipmap/ic_launcher"
+        app:placeholderImage="@mipmap/ic_launcher"
+        app:placeholderImageScaleType="fitCenter"
+        app:actualImageScaleType="centerCrop"
         android:layout_height="200px"
         app:url="@{str}"/>
 </layout>

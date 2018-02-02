@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -20,6 +19,7 @@ import com.john.librarys.net.interf.ServiceTask;
 import com.john.librarys.utils.permissions.PermissionsHelper;
 import com.john.librarys.uikit.dialog.LoadingDialogFragment;
 import com.john.librarys.utils.util.ACache;
+import com.john.librarys.utils.util.DialogHelper;
 import com.john.librarys.utils.util.ExitHelper;
 import com.zhy.autolayout.AutoLayoutActivity;
 
@@ -41,7 +41,7 @@ public class BaseActivity extends AutoLayoutActivity {
         registerEventBus();
         setBindingContentView();
 //        setStatusBar();
-
+        DialogHelper.init(this);
     }
 
     protected void setStatusBar() {
@@ -199,40 +199,33 @@ public class BaseActivity extends AutoLayoutActivity {
         return false;
     }
 
-    protected LoadingDialogFragment mLoadingDialog;
-
-    public LoadingDialogFragment showLoadingDialog() {
-        return showLoadingDialog(null);
+    private boolean outCancel = false;
+    public boolean isOutCancel() {
+        return outCancel;
     }
 
-    public LoadingDialogFragment getLoadingDialog() {
-        return mLoadingDialog;
+    public void setOutCancel(boolean outCancel) {
+        this.outCancel = outCancel;
     }
-
     /**
      * 显示加载框
      *
      * @param task
      */
-    public LoadingDialogFragment showLoadingDialog(ServiceTask task) {
-        if (mLoadingDialog == null) {
-            mLoadingDialog = generateLoadingDialogFragment();
-        }
-        if (task != null) {
-            mLoadingDialog.addServiceTask(task);
-        }
-        mLoadingDialog.show(getSupportFragmentManager());
-        return mLoadingDialog;
+    public void showLoadingDialog(ServiceTask task) {
+        LoadingDialogFragment.showLoading(this,task);
+    }
+    public void showLoadingDialog(String msg) {
+        LoadingDialogFragment.showLoading(this, msg);
+    }
+    public void showLoadingDialog() {
+        LoadingDialogFragment.showLoading(this);
+    }
+    public void dismissLoadingDialog() {
+        LoadingDialogFragment.dismissDialog();
+
     }
 
-    /**
-     * 生成新的loadingdialog
-     *
-     * @return
-     */
-    protected LoadingDialogFragment generateLoadingDialogFragment() {
-        return new LoadingDialogFragment();
-    }
 
     //------ 隐藏容器-------
     protected View mContentContainer;
@@ -334,7 +327,13 @@ public class BaseActivity extends AutoLayoutActivity {
      * 吐司 提示
      * @param showStr
      */
+    private Toast toast;
     public void showToast(String showStr){
-        Toast.makeText(this,showStr, Toast.LENGTH_SHORT).show();
+        if (toast==null){
+            toast=Toast.makeText(this,showStr, Toast.LENGTH_SHORT);
+        }else {
+            toast.setText(showStr);
+        }
+        toast.show();
     }
 }

@@ -5,7 +5,7 @@ android {
     buildToolsVersion "26.0.0"
 
     defaultConfig {
-        minSdkVersion 16
+        minSdkVersion 19
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
@@ -31,6 +31,7 @@ android {
     }
 }
 
+
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
@@ -41,14 +42,31 @@ dependencies {
     compile 'com.android.support:design:26.+'
     testCompile 'junit:junit:4.12'
 
+    //轮播图
+    compile 'cn.bingoogolapple:bga-banner:2.1.4@aar'
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+
+    //刷新框架
+    compile 'cn.bingoogolapple:bga-adapter:1.1.5@aar'
+    compile 'cn.bingoogolapple:bga-refreshlayout:1.1.7@aar'
+
+    //小猫 loading
+    compile 'com.roger.catloadinglibrary:catloadinglibrary:1.0.1'
+
+//    个性化 按钮 动画
+    compile 'com.github.dmytrodanylyk.circular-progress-button:library:1.1.3'
+
+//    个性化输入框
+    compile 'com.github.florent37:materialtextfield:1.0.7'
+
     //    https://github.com/supengchao/AutoLayout
-    compile 'com.zhy:autolayout:1.4.3'//屏幕适配
+    compile 'com.zhy:autolayout:1.4.3'//屏幕适配 supengchao
 
 //    https://github.com/JakeWharton/butterknife
     compile 'com.jakewharton:butterknife:7.0.1' //注释
 
 //    https://github.com/qiangxi/CheckUpdateLibrary
-    compile 'com.qiangxi.checkupdatelibrary:checkupdatelibrary:1.1.3@aar' //Android检查更新库
+    compile 'com.qiangxi.checkupdatelibrary:checkupdatelibrary:1.1.3@aar' //Android检查更新库 qiangxi
 
 //    https://github.com/pengwei1024/LogUtils
     compile 'com.apkfuns.logutils:library:1.5.1.1' //日志
