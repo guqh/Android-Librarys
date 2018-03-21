@@ -11,7 +11,7 @@ import java.io.Serializable;
 public class BaseData implements Serializable {
 
     @SerializedName("code")
-    int code;
+    Integer code;
     @SerializedName("msg")
     String msg;
     @SerializedName("data")
