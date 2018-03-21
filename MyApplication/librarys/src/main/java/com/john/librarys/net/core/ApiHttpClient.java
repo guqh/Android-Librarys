@@ -55,8 +55,14 @@ public class ApiHttpClient {
     }
 
     private final static String TAG = "ApiHttpClient";
-    public static final int TIMEOUT_MS = 10000;//超时时间
-
+    /**
+     * 超时时间
+     */
+    public static int TIMEOUT_MS = 10000;
+    /**
+     * 数据字段
+     */
+    public static String JSONDATASTR  = "data";
     /**
      * 本类实例
      */
@@ -74,6 +80,21 @@ public class ApiHttpClient {
     private ApiHttpClient(Context context) {
         mRequestQueue = Volley.newRequestQueue(context, new OkHttpStack(new OkHttpClient()));
         mOkHttpClient = new OkHttpClient();
+    }
+
+    /**
+     * 设置 数据字段
+     * @param dataStr
+     */
+    public static void setJsonDateStr( String dataStr){
+        JSONDATASTR=dataStr;
+    }
+    /**
+     * 设置 超时时间
+     * @param timeOutMs
+     */
+    public static void setTimeOutMs( int timeOutMs){
+        TIMEOUT_MS=timeOutMs;
     }
 
     /**
@@ -290,21 +311,18 @@ public class ApiHttpClient {
             try {
                 LogUtils.i("response==",response);
                 JSONObject jsonObject = new JSONObject(response);
-                Object data = null;//返回json数据（JSONObject/JSONArray）
-                if (!jsonObject.isNull("body")) {
+                //返回json数据（JSONObject/JSONArray）
+                Object data = null;
+                if (!jsonObject.isNull(JSONDATASTR)) {
                     if (isJSONArray) {
-                        data = jsonObject.getJSONArray("body");
+                        data = jsonObject.getJSONArray(JSONDATASTR);
                     } else {
-                        data = jsonObject.getJSONObject("body");
+                        data = jsonObject.getJSONObject(JSONDATASTR);
                     }
                 }
                 LogUtils.i("data==",data);
-                BaseData mBaseData= (BaseData) GsonHelper.parseJsonObject(new JSONObject(response),BaseData.class);
-                if (mBaseData.getSuccess()!=Constants.STATE_CODE_SUCCESS){
-                    Toast.makeText(mContext,mBaseData.getMsg(), Toast.LENGTH_SHORT).show();
-                }
-                callback.onCall(mBaseData.getSuccess(), data);
-
+                BaseData mBaseData= (BaseData) GsonHelper.parseJsonObject(jsonObject,BaseData.class);
+                callback.onCall(mBaseData.getCode(), data);
             } catch (JSONException e) {
                 e.printStackTrace();
                 callback.onCall(Constants.STATE_CODE_FAILED, null);

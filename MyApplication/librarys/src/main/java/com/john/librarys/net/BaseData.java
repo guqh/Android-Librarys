@@ -10,23 +10,27 @@ import java.io.Serializable;
  */
 public class BaseData implements Serializable {
 
-    @SerializedName("succes")
-    int success;
+    @SerializedName("code")
+    int code;
     @SerializedName("msg")
     String msg;
-    @SerializedName("type")
-    String type;
-    @SerializedName("oper")
-    String oper;
-    @SerializedName("body")
-    Object body;
+    @SerializedName("data")
+    Object data;
 
-    public int getSuccess() {
-        return success;
+    public int getCode() {
+        return code;
     }
 
-    public void setSuccess(int success) {
-        this.success = success;
+    public void setCode(int code) {
+        this.code = code;
+    }
+
+    public Object getData() {
+        return data;
+    }
+
+    public void setData(Object data) {
+        this.data = data;
     }
 
     public String getMsg() {
@@ -37,27 +41,4 @@ public class BaseData implements Serializable {
         this.msg = msg;
     }
 
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public String getOper() {
-        return oper;
-    }
-
-    public void setOper(String oper) {
-        this.oper = oper;
-    }
-
-    public Object getBody() {
-        return body;
-    }
-
-    public void setBody(Object body) {
-        this.body = body;
-    }
 }
