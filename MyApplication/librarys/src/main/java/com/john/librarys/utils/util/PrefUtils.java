@@ -51,6 +51,18 @@ public class PrefUtils {
 		sp.edit().putInt(key, value).commit();
 	}
 
+	public static <T> boolean saveObject(Context ctx,String key,T t) {
+		SharedPreferences sp = ctx.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+		String json = GsonHelper.entity2JsonObject(t);
+		return sp.edit().putString(key, json).commit();
+	}
+
+	public static <T> T getObject(Context ctx,String key,Class<T> tClazz) {
+		SharedPreferences sp = ctx.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+		String json = sp.getString(key, "{}");
+		return GsonHelper.getGson().fromJson(json,tClazz);
+	}
+
 	public static String getSystemTime() {
 		Time t = new Time(); // or Time t=new Time("GMT+8"); 加上Time Zone资料。
 		t.setToNow(); // 取得系统时间。
