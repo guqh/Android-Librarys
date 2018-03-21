@@ -312,17 +312,16 @@ public class ApiHttpClient {
                 LogUtils.i("response==",response);
                 JSONObject jsonObject = new JSONObject(response);
                 //返回json数据（JSONObject/JSONArray）
-                Object data = null;
-                if (!jsonObject.isNull(JSONDATASTR)) {
-                    if (isJSONArray) {
-                        data = jsonObject.getJSONArray(JSONDATASTR);
-                    } else {
-                        data = jsonObject.getJSONObject(JSONDATASTR);
-                    }
-                }
-                LogUtils.i("data==",data);
+//                Object data = null;
+//                if (!jsonObject.isNull(JSONDATASTR)) {
+//                    if (isJSONArray) {
+//                        data = jsonObject.getJSONArray(JSONDATASTR);
+//                    } else {
+//                        data = jsonObject.getJSONObject(JSONDATASTR);
+//                    }
+//                }
                 BaseData mBaseData= (BaseData) GsonHelper.parseJsonObject(jsonObject,BaseData.class);
-                callback.onCall(mBaseData.getCode(), data);
+                callback.onCall(mBaseData.getCode(), mBaseData);
             } catch (JSONException e) {
                 e.printStackTrace();
                 callback.onCall(Constants.STATE_CODE_FAILED, null);
