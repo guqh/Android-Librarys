@@ -309,17 +309,8 @@ public class ApiHttpClient {
     private void handleData(String response, boolean isJSONArray, Callback callback) {
         if (!TextUtils.isEmpty(response)) {
             try {
-                LogUtils.i("response==",response);
+                LogUtils.i("response=="+response);
                 JSONObject jsonObject = new JSONObject(response);
-                //返回json数据（JSONObject/JSONArray）
-//                Object data = null;
-//                if (!jsonObject.isNull(JSONDATASTR)) {
-//                    if (isJSONArray) {
-//                        data = jsonObject.getJSONArray(JSONDATASTR);
-//                    } else {
-//                        data = jsonObject.getJSONObject(JSONDATASTR);
-//                    }
-//                }
                 BaseData mBaseData= (BaseData) GsonHelper.parseJsonObject(jsonObject,BaseData.class);
                 callback.onCall(mBaseData.getCode(), mBaseData);
             } catch (JSONException e) {
