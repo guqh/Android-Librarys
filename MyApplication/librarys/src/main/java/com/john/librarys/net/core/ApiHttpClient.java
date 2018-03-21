@@ -312,7 +312,7 @@ public class ApiHttpClient {
                 LogUtils.i("response=="+response);
                 JSONObject jsonObject = new JSONObject(response);
                 BaseData mBaseData= (BaseData) GsonHelper.parseJsonObject(jsonObject,BaseData.class);
-                callback.onCall(mBaseData.getCode(), GsonHelper.parseJsonObject(jsonObject,Object.class));
+                callback.onCall(mBaseData.getCode(), response);
             } catch (JSONException e) {
                 e.printStackTrace();
                 callback.onCall(Constants.STATE_CODE_FAILED, null);
