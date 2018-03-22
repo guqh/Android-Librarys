@@ -7,6 +7,7 @@ import com.google.gson.reflect.TypeToken;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.lang.reflect.Modifier;
 import java.util.List;
 
 /**
@@ -32,6 +33,7 @@ public class GsonHelper {
      */
     public static Gson getGsonForDateFormat(String dateFormat) {
         GsonBuilder builder = getGsonBuilder(dateFormat);
+        builder.excludeFieldsWithModifiers(Modifier.FINAL, Modifier.TRANSIENT, Modifier.STATIC);
         return builder.create();
     }
 
