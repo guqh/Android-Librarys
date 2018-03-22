@@ -2,6 +2,7 @@ package com.john.librarys.net.core;
 
 import android.content.Context;
 
+import android.text.TextUtils;
 import com.android.volley.Request;
 import com.apkfuns.logutils.LogUtils;
 
@@ -23,6 +24,8 @@ public class ApiClient {
 
     boolean mDoGet = true;//是否使用get 方式请求，
     boolean isJsonParams = false;//参数是否为json格式string
+    private String value;
+    private String key;
 
     /**
      * 构建标准的 map参数的 client
@@ -92,6 +95,15 @@ public class ApiClient {
         mDoGet = true;
         execute();
     }
+    /**
+     * 使用get
+     */
+    public void doGetAddHeaders(String key,String value) {
+        mDoGet = true;
+        this.key=key;
+        this.value=value;
+        execute();
+    }
 
     /**
      * 使用post
@@ -126,7 +138,11 @@ public class ApiClient {
         if (mDoGet) {
             //使用Get方式
             if (!isJsonParams) {
-                request = apiHttpClient.doGet(mUrl, mParams, isCallbackTypeJsonArray(), getApiCallback());
+               if (!TextUtils.isEmpty(key)&&!TextUtils.isEmpty(value)){
+                    request = apiHttpClient.doGetAddHeaders(mUrl, mParams,false, getApiCallback(),key,value);
+                }else {
+                   request = apiHttpClient.doGet(mUrl, mParams, isCallbackTypeJsonArray(), getApiCallback());
+               }
             } else {
                 request = apiHttpClient.doGet(mUrl, mJsonParams, getApiCallback());
             }

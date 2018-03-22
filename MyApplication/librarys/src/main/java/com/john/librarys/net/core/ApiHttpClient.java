@@ -251,6 +251,48 @@ public class ApiHttpClient {
         mRequestQueue.add(request);
         return request;
     }
+    /**
+     * GET请求
+     *
+     * @param url
+     * @param params
+     * @param isJSONArray 返回结果是否是JSONArray
+     * @param callback
+     * @return
+     */
+    public Request doGetAddHeaders(final String url, final Map<String, String> params, final boolean isJSONArray, final Callback callback, final String key, final String value) {
+        StringRequest request = new StringRequest(Request.Method.GET, fixUrl(Request.Method.GET, url, params), new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                handleData(response, isJSONArray, callback);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                if (error.toString().contains("NoConnectionError")){
+                    Toast.makeText(mContext,"您的网络已经进入异次元", Toast.LENGTH_SHORT).show();
+                }
+                if (error.toString().contains("ServerError")){
+                    Toast.makeText(mContext,"研发的小伙伴们，正在拼命修复", Toast.LENGTH_SHORT).show();
+                }
+                if (error.toString().contains("TimeoutError")){
+                    Toast.makeText(mContext,"网络超时，请稍后重试", Toast.LENGTH_SHORT).show();
+                }
+                Log.e(TAG, "onErrorResponse", error);
+                callback.onCall(Constants.STATE_CODE_FAILED, null);
+            }
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String,String> params = new HashMap<>();
+                params.put(key,value);
+                return params;
+            }
+        };
+        requestConfig(request);
+        mRequestQueue.add(request);
+        return request;
+    }
 
     /**
      * 请求参数为json格式的字符串get请求<br/>
