@@ -191,6 +191,46 @@ public class ApiHttpClient {
         mRequestQueue.add(request);
         return request;
     }
+    /**
+     * 请求参数为json格式的字符串post请求<br/>
+     *
+     * @param url
+     * @param jsonParams
+     * @param callback
+     * @return 返回值为JsonObjectRequest
+     */
+    public JsonObjectRequest doPostAddHeaders(String url, String jsonParams, final Callback callback, final String key, final String value) {
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, jsonParams, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                handleData(response.toString(), false, callback);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                if (error.toString().contains("NoConnectionError")){
+                    Toast.makeText(mContext,"您的网络已经进入异次元", Toast.LENGTH_SHORT).show();
+                }
+                if (error.toString().contains("ServerError")){
+                    Toast.makeText(mContext,"研发的小伙伴们，正在拼命修复", Toast.LENGTH_SHORT).show();
+                }
+                if (error.toString().contains("TimeoutError")){
+                    Toast.makeText(mContext,"网络超时，请稍后重试", Toast.LENGTH_SHORT).show();
+                }
+                LogUtils.e(error);
+                callback.onCall(Constants.STATE_CODE_FAILED, null);
+            }
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String,String> params = new HashMap<>();
+                params.put(key,value);
+                return params;
+            }};
+        requestConfig(request);
+        mRequestQueue.add(request);
+        return request;
+    }
 
     /**
      * 配置request

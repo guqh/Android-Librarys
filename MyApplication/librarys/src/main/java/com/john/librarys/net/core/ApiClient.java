@@ -104,6 +104,15 @@ public class ApiClient {
         this.value=value;
         execute();
     }
+    /**
+     * 使用post
+     */
+    public void doPostAddHeaders(String key,String value) {
+        mDoGet = true;
+        this.key=key;
+        this.value=value;
+        execute();
+    }
 
     /**
      * 使用post
@@ -151,7 +160,11 @@ public class ApiClient {
             if (!isJsonParams) {
                 request = apiHttpClient.doPost(mUrl, mParams, isCallbackTypeJsonArray(), getApiCallback());
             } else {
-                request = apiHttpClient.doPost(mUrl, mJsonParams, getApiCallback());
+                if (!TextUtils.isEmpty(key)&&!TextUtils.isEmpty(value)){
+                    request = apiHttpClient.doPostAddHeaders(mUrl, mJsonParams, getApiCallback(),key,value);
+                }else {
+                    request = apiHttpClient.doPost(mUrl, mJsonParams, getApiCallback());
+                }
             }
         }
 
