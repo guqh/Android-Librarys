@@ -108,7 +108,7 @@ public class ApiClient {
      * 使用post
      */
     public void doPostAddHeaders(String key,String value) {
-        mDoGet = true;
+        mDoGet = false;
         this.key=key;
         this.value=value;
         execute();
