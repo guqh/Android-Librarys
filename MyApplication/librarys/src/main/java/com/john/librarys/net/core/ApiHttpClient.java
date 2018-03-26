@@ -3,39 +3,24 @@ package com.john.librarys.net.core;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.text.TextUtils;
-import android.util.Log;
 import android.widget.Toast;
-
-import com.android.volley.AuthFailureError;
-import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.*;
 import com.android.volley.Request;
-import com.android.volley.RequestQueue;
 import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.apkfuns.logutils.LogUtils;
-import com.squareup.okhttp.Call;
-import com.squareup.okhttp.Headers;
-import com.squareup.okhttp.MediaType;
-import com.squareup.okhttp.MultipartBuilder;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.RequestBody;
 import com.john.librarys.net.BaseData;
 import com.john.librarys.net.Constants;
 import com.john.librarys.net.interf.Callback;
 import com.john.librarys.net.interf.ProgressCallback;
 import com.john.librarys.utils.util.GsonHelper;
-
+import com.squareup.okhttp.*;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.net.FileNameMap;
 import java.net.URLConnection;
 import java.util.ArrayList;
@@ -141,7 +126,6 @@ public class ApiHttpClient {
                 if (error.toString().contains("TimeoutError")){
                     Toast.makeText(mContext,"网络超时，请稍后重试", Toast.LENGTH_SHORT).show();
                 }
-                Log.e(TAG, "onErrorResponse", error);
                 callback.onCall(Constants.STATE_CODE_FAILED, null);
             }
         }) {
@@ -165,11 +149,11 @@ public class ApiHttpClient {
      * @param callback
      * @return 返回值为JsonObjectRequest
      */
-    public JsonObjectRequest doPost(String url, String jsonParams, final Callback callback) {
+    public JsonObjectRequest doPost(String url, String jsonParams,final boolean isJSONArray, final Callback callback) {
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, jsonParams, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                handleData(response.toString(), false, callback);
+                handleData(response.toString(), isJSONArray, callback);
             }
         }, new Response.ErrorListener() {
             @Override
@@ -199,11 +183,11 @@ public class ApiHttpClient {
      * @param callback
      * @return 返回值为JsonObjectRequest
      */
-    public JsonObjectRequest doPostAddHeaders(String url, String jsonParams, final Callback callback, final String key, final String value) {
+    public JsonObjectRequest doPostAddHeaders(String url, String jsonParams,final boolean isJSONArray, final Callback callback, final String key, final String value) {
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, jsonParams, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                handleData(response.toString(), false, callback);
+                handleData(response.toString(), isJSONArray, callback);
             }
         }, new Response.ErrorListener() {
             @Override
@@ -283,7 +267,6 @@ public class ApiHttpClient {
                 if (error.toString().contains("TimeoutError")){
                     Toast.makeText(mContext,"网络超时，请稍后重试", Toast.LENGTH_SHORT).show();
                 }
-                Log.e(TAG, "onErrorResponse", error);
                 callback.onCall(Constants.STATE_CODE_FAILED, null);
             }
         });
@@ -318,7 +301,6 @@ public class ApiHttpClient {
                 if (error.toString().contains("TimeoutError")){
                     Toast.makeText(mContext,"网络超时，请稍后重试", Toast.LENGTH_SHORT).show();
                 }
-                Log.e(TAG, "onErrorResponse", error);
                 callback.onCall(Constants.STATE_CODE_FAILED, null);
             }
         }){
@@ -342,11 +324,11 @@ public class ApiHttpClient {
      * @param callback
      * @return 返回值为JsonObjectRequest
      */
-    public JsonObjectRequest doGet(String url, String jsonParams, final Callback callback) {
+    public JsonObjectRequest doGet(String url, String jsonParams,final boolean isJSONArray, final Callback callback) {
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, jsonParams, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                handleData(response.toString(), false, callback);
+                handleData(response.toString(), isJSONArray, callback);
             }
         }, new Response.ErrorListener() {
             @Override
@@ -393,8 +375,17 @@ public class ApiHttpClient {
             try {
                 LogUtils.i("response=="+response);
                 JSONObject jsonObject = new JSONObject(response);
+
+                Object data = null;//返回json数据（JSONObject/JSONArray）
+                if (!jsonObject.isNull(JSONDATASTR)) {
+                    if (isJSONArray) {
+                        data = jsonObject.getJSONArray(JSONDATASTR);
+                    } else {
+                        data = jsonObject.getJSONObject(JSONDATASTR);
+                    }
+                }
                 BaseData mBaseData= (BaseData) GsonHelper.parseJsonObject(jsonObject,BaseData.class);
-                callback.onCall(mBaseData.getCode(), response);
+                callback.onCall(mBaseData.getCode(), data);
             } catch (JSONException e) {
                 e.printStackTrace();
                 callback.onCall(Constants.STATE_CODE_FAILED, null);
@@ -590,13 +581,11 @@ public class ApiHttpClient {
             @Override
             public void onFailure(com.squareup.okhttp.Request request, IOException e) {
                 callback.onCall(Constants.STATE_CODE_FAILED, null);
-                Log.e(TAG, "upload()发生错误：" + e);
             }
 
             @Override
             public void onResponse(com.squareup.okhttp.Response response) throws IOException {
                 String result = response.body().string();
-                Log.e(TAG, "response " + result);
                 handleData(result, false, callback);
             }
         });
@@ -644,12 +633,10 @@ public class ApiHttpClient {
             @Override
             public void onFailure(com.squareup.okhttp.Request request, IOException e) {
                 callback.onCall(Constants.STATE_CODE_FAILED, null);
-                Log.e(TAG, "download()发生错误：" + e);
             }
 
             @Override
             public void onResponse(com.squareup.okhttp.Response response) throws IOException {
-                Log.e("response", "response " + response.body().toString());
                 InputStream is = null;
                 byte[] buf = new byte[2048];
                 int len = 0;

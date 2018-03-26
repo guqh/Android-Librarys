@@ -14,8 +14,6 @@ public class BaseData implements Serializable {
     Integer code;
     @SerializedName("msg")
     String msg;
-    @SerializedName("data")
-    Object data;
 
     public int getCode() {
         return code;
@@ -23,14 +21,6 @@ public class BaseData implements Serializable {
 
     public void setCode(int code) {
         this.code = code;
-    }
-
-    public Object getData() {
-        return data;
-    }
-
-    public void setData(Object data) {
-        this.data = data;
     }
 
     public String getMsg() {
