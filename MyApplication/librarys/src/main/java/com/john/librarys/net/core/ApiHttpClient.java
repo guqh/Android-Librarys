@@ -11,11 +11,9 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.apkfuns.logutils.LogUtils;
-import com.john.librarys.net.BaseData;
 import com.john.librarys.net.Constants;
 import com.john.librarys.net.interf.Callback;
 import com.john.librarys.net.interf.ProgressCallback;
-import com.john.librarys.utils.util.GsonHelper;
 import com.squareup.okhttp.*;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -375,7 +373,7 @@ public class ApiHttpClient {
             try {
                 LogUtils.i("response=="+response);
                 JSONObject jsonObject = new JSONObject(response);
-
+                int resultCode = jsonObject.getInt("code");//状态码
                 Object data = null;//返回json数据（JSONObject/JSONArray）
                 if (!jsonObject.isNull(JSONDATASTR)) {
                     if (isJSONArray) {
@@ -384,10 +382,9 @@ public class ApiHttpClient {
                         data = jsonObject.getJSONObject(JSONDATASTR);
                     }
                 }
-                BaseData mBaseData= (BaseData) GsonHelper.parseJsonObject(jsonObject,BaseData.class);
-                callback.onCall(mBaseData.getCode(), data);
+                callback.onCall(resultCode, data);
             } catch (JSONException e) {
-                e.printStackTrace();
+                LogUtils.e(e);
                 callback.onCall(Constants.STATE_CODE_FAILED, null);
             }
         }
