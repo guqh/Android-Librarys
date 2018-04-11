@@ -222,8 +222,8 @@ public class ApiHttpClient {
      */
     private void requestConfig(Request request) {
         request.setRetryPolicy(new DefaultRetryPolicy(TIMEOUT_MS,//默认超时时间，应设置一个稍微大点儿的
-                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,//默认最大尝试次数
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+                                                      DefaultRetryPolicy.DEFAULT_MAX_RETRIES,//默认最大尝试次数
+                                                      DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
     }
 
 
@@ -370,34 +370,32 @@ public class ApiHttpClient {
      * @param callback
      */
     private void handleData(String response, boolean isJSONArray, Callback callback) {
-        if (!TextUtils.isEmpty(response)) {
-            try {
-                LogUtils.i("response=="+response);
-                int resultCode;
-                Object data = null;//返回json数据（JSONObject/JSONArray）
-                if (TextUtils.isEmpty(response)){
-                    resultCode=Constants.STATE_CODE_FAILED;
-                }else {
-                    JSONObject jsonObject = new JSONObject(response);
-                    resultCode = jsonObject.getInt("code");//状态码
-                    if(!TextUtils.isEmpty(jsonObject.getString(JSONDATASTR))){
-                        if (!jsonObject.isNull(JSONDATASTR)) {
-                            if (isJSONArray) {
-                                data = jsonObject.getJSONArray(JSONDATASTR);
-                            } else {
-                                data = jsonObject.getJSONObject(JSONDATASTR);
-                            }
+        try {
+            LogUtils.i("response=="+response);
+            int resultCode;
+            Object data = null;//返回json数据（JSONObject/JSONArray）
+            if (TextUtils.isEmpty(response)){
+                resultCode=Constants.STATE_CODE_FAILED;
+            }else {
+                JSONObject jsonObject = new JSONObject(response);
+                resultCode = jsonObject.getInt("code");//状态码
+                if(!TextUtils.isEmpty(jsonObject.getString(JSONDATASTR))){
+                    if (!jsonObject.isNull(JSONDATASTR)) {
+                        if (isJSONArray) {
+                            data = jsonObject.getJSONArray(JSONDATASTR);
+                        } else {
+                            data = jsonObject.getJSONObject(JSONDATASTR);
                         }
                     }
-                    if (resultCode!=Constants.STATE_CODE_SUCCESS&&jsonObject.has("errorInfo")){
-                        Toast.makeText(mContext,jsonObject.getString("errorInfo"), Toast.LENGTH_SHORT).show();
-                    }
                 }
-                callback.onCall(resultCode, data);
-            } catch (JSONException e) {
-                LogUtils.e(e);
-                callback.onCall(Constants.STATE_CODE_FAILED, null);
+                if (resultCode!=Constants.STATE_CODE_SUCCESS&&jsonObject.has("errorInfo")){
+                    Toast.makeText(mContext,jsonObject.getString("errorInfo"), Toast.LENGTH_SHORT).show();
+                }
             }
+            callback.onCall(resultCode, data);
+        } catch (JSONException e) {
+            LogUtils.e(e);
+            callback.onCall(Constants.STATE_CODE_FAILED, null);
         }
     }
 
@@ -503,8 +501,8 @@ public class ApiHttpClient {
                     String fileName = String.valueOf(System.currentTimeMillis());
 
                     builder.addPart(Headers.of("Content-Disposition",
-                                    "form-data; name=\"" + fileKeyName + "\"; filename=\"" + fileName + "\""),
-                            fileBody);
+                                               "form-data; name=\"" + fileKeyName + "\"; filename=\"" + fileName + "\""),
+                                    fileBody);
                 }
             }
         }
@@ -539,8 +537,8 @@ public class ApiHttpClient {
                 String fileName = file.getName();//得到文件本身自带文件名
                 fileBody = RequestBody.create(MediaType.parse(guessMimeType(fileName)), file);
                 builder.addPart(Headers.of("Content-Disposition",
-                                "form-data; name=\"" + fileKeyName + "\"; filename=\"" + fileName + "\""),
-                        fileBody);
+                                           "form-data; name=\"" + fileKeyName + "\"; filename=\"" + fileName + "\""),
+                                fileBody);
             }
         }
         CountingRequestBody countingRequestBody = wrapRequestBody(callback, builder);
@@ -568,8 +566,8 @@ public class ApiHttpClient {
                     String fileName = file.getName();//得到文件本身自带文件名
                     fileBody = RequestBody.create(MediaType.parse(guessMimeType(fileName)), file);
                     builder.addPart(Headers.of("Content-Disposition",
-                                    "form-data; name=\"" + fileKeyName + "\"; filename=\"" + fileName + "\""),
-                            fileBody);
+                                               "form-data; name=\"" + fileKeyName + "\"; filename=\"" + fileName + "\""),
+                                    fileBody);
                 }
             }
             CountingRequestBody countingRequestBody = wrapRequestBody(callback, builder);
@@ -581,9 +579,9 @@ public class ApiHttpClient {
 
     private void doUpload(String url, final ProgressCallback callback, CountingRequestBody countingRequestBody) {
         com.squareup.okhttp.Request request = new com.squareup.okhttp.Request.Builder()
-                .url(url)
-                .post(countingRequestBody)
-                .build();
+            .url(url)
+            .post(countingRequestBody)
+            .build();
         //执行
         mOkHttpClient.newCall(request).enqueue(new com.squareup.okhttp.Callback() {
             @Override
@@ -618,7 +616,7 @@ public class ApiHttpClient {
         if (params != null && !params.isEmpty()) {
             for (String key : params.keySet()) {
                 builder.addPart(Headers.of("Content-Disposition", "form-data; name=\"" + key + "\""),
-                        RequestBody.create(null, params.get(key)));
+                                RequestBody.create(null, params.get(key)));
             }
         }
     }
@@ -634,8 +632,8 @@ public class ApiHttpClient {
      */
     public void download(final String url, final String targetDir, final ProgressCallback callback) {
         final com.squareup.okhttp.Request request = new com.squareup.okhttp.Request.Builder()
-                .url(url)
-                .build();
+            .url(url)
+            .build();
         final Call call = mOkHttpClient.newCall(request);
         call.enqueue(new com.squareup.okhttp.Callback() {
             @Override
