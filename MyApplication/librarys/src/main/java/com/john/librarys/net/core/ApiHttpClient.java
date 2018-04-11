@@ -376,7 +376,7 @@ public class ApiHttpClient {
                 JSONObject jsonObject = new JSONObject(response);
                 int resultCode = jsonObject.getInt("code");//状态码
                 Object data = null;//返回json数据（JSONObject/JSONArray）
-                if(!TextUtils.isEmpty(JSONDATASTR)){
+                if(!TextUtils.isEmpty(jsonObject.getString(JSONDATASTR))){
                     if (!jsonObject.isNull(JSONDATASTR)) {
                         if (isJSONArray) {
                             data = jsonObject.getJSONArray(JSONDATASTR);
