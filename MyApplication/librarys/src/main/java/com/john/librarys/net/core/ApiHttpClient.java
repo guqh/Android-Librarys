@@ -376,11 +376,13 @@ public class ApiHttpClient {
                 JSONObject jsonObject = new JSONObject(response);
                 int resultCode = jsonObject.getInt("code");//状态码
                 Object data = null;//返回json数据（JSONObject/JSONArray）
-                if (!jsonObject.isNull(JSONDATASTR)) {
-                    if (isJSONArray) {
-                        data = jsonObject.getJSONArray(JSONDATASTR);
-                    } else {
-                        data = jsonObject.getJSONObject(JSONDATASTR);
+                if(!TextUtils.isEmpty(JSONDATASTR)){
+                    if (!jsonObject.isNull(JSONDATASTR)) {
+                        if (isJSONArray) {
+                            data = jsonObject.getJSONArray(JSONDATASTR);
+                        } else {
+                            data = jsonObject.getJSONObject(JSONDATASTR);
+                        }
                     }
                 }
                 if (resultCode!=Constants.STATE_CODE_SUCCESS&&jsonObject.has("errorInfo")){
