@@ -10,4 +10,9 @@
     <string name="modify_num">修改数量</string>
 
     <string name="tag_text">tag</string>
+
+    <string name = "str_net_time_out">网络超时，请稍后重试</string>
+    <string name = "str_no_network">您的网络已经进入异次元</string>
+    <string name = "str_service_error">研发的小伙伴们，正在拼命修复</string>
+
 </resources>

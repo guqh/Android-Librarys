@@ -11,6 +11,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.apkfuns.logutils.LogUtils;
+import com.john.librarys.R;
 import com.john.librarys.net.Constants;
 import com.john.librarys.net.interf.Callback;
 import com.john.librarys.net.interf.ProgressCallback;
@@ -116,13 +117,13 @@ public class ApiHttpClient {
             @Override
             public void onErrorResponse(VolleyError error) {
                 if (error.toString().contains("NoConnectionError")){
-                    Toast.makeText(mContext,"您的网络已经进入异次元", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext,mContext.getString(R.string.str_no_network), Toast.LENGTH_SHORT).show();
                 }
                 if (error.toString().contains("ServerError")){
-                    Toast.makeText(mContext,"研发的小伙伴们，正在拼命修复", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext,mContext.getString(R.string.str_service_error), Toast.LENGTH_SHORT).show();
                 }
                 if (error.toString().contains("TimeoutError")){
-                    Toast.makeText(mContext,"网络超时，请稍后重试", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext,mContext.getString(R.string.str_net_time_out), Toast.LENGTH_SHORT).show();
                 }
                 callback.onCall(Constants.STATE_CODE_FAILED, null);
             }
@@ -157,13 +158,13 @@ public class ApiHttpClient {
             @Override
             public void onErrorResponse(VolleyError error) {
                 if (error.toString().contains("NoConnectionError")){
-                    Toast.makeText(mContext,"您的网络已经进入异次元", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext,mContext.getString(R.string.str_no_network), Toast.LENGTH_SHORT).show();
                 }
                 if (error.toString().contains("ServerError")){
-                    Toast.makeText(mContext,"研发的小伙伴们，正在拼命修复", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext,mContext.getString(R.string.str_service_error), Toast.LENGTH_SHORT).show();
                 }
                 if (error.toString().contains("TimeoutError")){
-                    Toast.makeText(mContext,"网络超时，请稍后重试", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext,mContext.getString(R.string.str_net_time_out), Toast.LENGTH_SHORT).show();
                 }
                 LogUtils.e(error);
                 callback.onCall(Constants.STATE_CODE_FAILED, null);
@@ -191,13 +192,13 @@ public class ApiHttpClient {
             @Override
             public void onErrorResponse(VolleyError error) {
                 if (error.toString().contains("NoConnectionError")){
-                    Toast.makeText(mContext,"您的网络已经进入异次元", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext,mContext.getString(R.string.str_no_network), Toast.LENGTH_SHORT).show();
                 }
                 if (error.toString().contains("ServerError")){
-                    Toast.makeText(mContext,"研发的小伙伴们，正在拼命修复", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext,mContext.getString(R.string.str_service_error), Toast.LENGTH_SHORT).show();
                 }
                 if (error.toString().contains("TimeoutError")){
-                    Toast.makeText(mContext,"网络超时，请稍后重试", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext,mContext.getString(R.string.str_net_time_out), Toast.LENGTH_SHORT).show();
                 }
                 LogUtils.e(error);
                 callback.onCall(Constants.STATE_CODE_FAILED, null);
@@ -257,13 +258,13 @@ public class ApiHttpClient {
             @Override
             public void onErrorResponse(VolleyError error) {
                 if (error.toString().contains("NoConnectionError")){
-                    Toast.makeText(mContext,"您的网络已经进入异次元", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext,mContext.getString(R.string.str_no_network), Toast.LENGTH_SHORT).show();
                 }
                 if (error.toString().contains("ServerError")){
-                    Toast.makeText(mContext,"研发的小伙伴们，正在拼命修复", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext,mContext.getString(R.string.str_service_error), Toast.LENGTH_SHORT).show();
                 }
                 if (error.toString().contains("TimeoutError")){
-                    Toast.makeText(mContext,"网络超时，请稍后重试", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext,mContext.getString(R.string.str_net_time_out), Toast.LENGTH_SHORT).show();
                 }
                 callback.onCall(Constants.STATE_CODE_FAILED, null);
             }
@@ -291,13 +292,13 @@ public class ApiHttpClient {
             @Override
             public void onErrorResponse(VolleyError error) {
                 if (error.toString().contains("NoConnectionError")){
-                    Toast.makeText(mContext,"您的网络已经进入异次元", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext,mContext.getString(R.string.str_no_network), Toast.LENGTH_SHORT).show();
                 }
                 if (error.toString().contains("ServerError")){
-                    Toast.makeText(mContext,"研发的小伙伴们，正在拼命修复", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext,mContext.getString(R.string.str_service_error), Toast.LENGTH_SHORT).show();
                 }
                 if (error.toString().contains("TimeoutError")){
-                    Toast.makeText(mContext,"网络超时，请稍后重试", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext,mContext.getString(R.string.str_net_time_out), Toast.LENGTH_SHORT).show();
                 }
                 callback.onCall(Constants.STATE_CODE_FAILED, null);
             }
@@ -332,13 +333,13 @@ public class ApiHttpClient {
             @Override
             public void onErrorResponse(VolleyError error) {
                 if (error.toString().contains("NoConnectionError")){
-                    Toast.makeText(mContext,"您的网络已经进入异次元", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext,mContext.getString(R.string.str_no_network), Toast.LENGTH_SHORT).show();
                 }
                 if (error.toString().contains("ServerError")){
-                    Toast.makeText(mContext,"研发的小伙伴们，正在拼命修复", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext,mContext.getString(R.string.str_service_error), Toast.LENGTH_SHORT).show();
                 }
                 if (error.toString().contains("TimeoutError")){
-                    Toast.makeText(mContext,"网络超时，请稍后重试", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, mContext.getString(R.string.str_net_time_out), Toast.LENGTH_SHORT).show();
                 }
                 LogUtils.e(error);
                 callback.onCall(Constants.STATE_CODE_FAILED, null);
@@ -381,6 +382,9 @@ public class ApiHttpClient {
                     } else {
                         data = jsonObject.getJSONObject(JSONDATASTR);
                     }
+                }
+                if (resultCode!=Constants.STATE_CODE_SUCCESS&&jsonObject.has("errorInfo")){
+                    Toast.makeText(mContext,jsonObject.getString("errorInfo"), Toast.LENGTH_SHORT).show();
                 }
                 callback.onCall(resultCode, data);
             } catch (JSONException e) {
