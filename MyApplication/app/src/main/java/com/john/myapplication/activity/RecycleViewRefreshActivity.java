@@ -88,10 +88,10 @@ public class RecycleViewRefreshActivity extends BaseActivity implements BGARefre
         });
 
 
-//        BGAStickinessRefreshViewHolder stickinessRefreshViewHolder = new BGAStickinessRefreshViewHolder(mContext, true);
-//        stickinessRefreshViewHolder.setStickinessColor(R.color.colorPrimary);
-//        stickinessRefreshViewHolder.setRotateImage(R.mipmap.bga_refresh_stickiness);
-//        mRefreshLayout.setRefreshViewHolder(stickinessRefreshViewHolder);
+        BGAStickinessRefreshViewHolder stickinessRefreshViewHolder = new BGAStickinessRefreshViewHolder(mContext, true);
+        stickinessRefreshViewHolder.setStickinessColor(R.color.colorPrimary);
+        stickinessRefreshViewHolder.setRotateImage(R.mipmap.bga_refresh_stickiness);
+        mRefreshLayout.setRefreshViewHolder(stickinessRefreshViewHolder);
 
         BGAMoocStyleRefreshViewHolder moocStyleRefreshViewHolder = new BGAMoocStyleRefreshViewHolder(mContext, true);
         moocStyleRefreshViewHolder.setOriginalImage(R.mipmap.ic_launcher);

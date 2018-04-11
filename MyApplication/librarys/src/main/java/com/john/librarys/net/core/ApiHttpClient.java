@@ -41,7 +41,7 @@ public class ApiHttpClient {
     /**
      * 超时时间
      */
-    public static int TIMEOUT_MS = 10000;
+    public static int TIMEOUT_MS = 30000;
     /**
      * 数据字段
      */

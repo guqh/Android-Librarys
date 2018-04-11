@@ -90,6 +90,7 @@ public class LoadingDialogFragment extends BaseDialogFragment {
     public static void dismissDialog() {
         if (loadingDialog != null) {
             loadingDialog.dismissAllowingStateLoss();
+            loadingDialog.dismiss();
             loadingDialog = null;
         }
     }
