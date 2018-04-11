@@ -372,14 +372,16 @@ public class ApiHttpClient {
     private void handleData(String response, boolean isJSONArray, Callback callback) {
         try {
             LogUtils.i("response=="+response);
-            int resultCode;
+            int resultCode = Constants.STATE_CODE_FAILED;
             Object data = null;//返回json数据（JSONObject/JSONArray）
             if (TextUtils.isEmpty(response)){
                 resultCode=Constants.STATE_CODE_FAILED;
             }else {
                 JSONObject jsonObject = new JSONObject(response);
-                resultCode = jsonObject.getInt("code");//状态码
-                if(!TextUtils.isEmpty(jsonObject.getString(JSONDATASTR))){
+                if (jsonObject.has("code")){
+                    resultCode = jsonObject.getInt("code");//状态码
+                }
+                if(jsonObject.has(JSONDATASTR)&&!TextUtils.isEmpty(jsonObject.getString(JSONDATASTR))){
                     if (!jsonObject.isNull(JSONDATASTR)) {
                         if (isJSONArray) {
                             data = jsonObject.getJSONArray(JSONDATASTR);
