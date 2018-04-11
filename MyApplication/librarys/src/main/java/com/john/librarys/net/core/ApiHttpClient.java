@@ -373,20 +373,25 @@ public class ApiHttpClient {
         if (!TextUtils.isEmpty(response)) {
             try {
                 LogUtils.i("response=="+response);
-                JSONObject jsonObject = new JSONObject(response);
-                int resultCode = jsonObject.getInt("code");//状态码
+                int resultCode;
                 Object data = null;//返回json数据（JSONObject/JSONArray）
-                if(!TextUtils.isEmpty(jsonObject.getString(JSONDATASTR))){
-                    if (!jsonObject.isNull(JSONDATASTR)) {
-                        if (isJSONArray) {
-                            data = jsonObject.getJSONArray(JSONDATASTR);
-                        } else {
-                            data = jsonObject.getJSONObject(JSONDATASTR);
+                if (TextUtils.isEmpty(response)){
+                    resultCode=Constants.STATE_CODE_FAILED;
+                }else {
+                    JSONObject jsonObject = new JSONObject(response);
+                    resultCode = jsonObject.getInt("code");//状态码
+                    if(!TextUtils.isEmpty(jsonObject.getString(JSONDATASTR))){
+                        if (!jsonObject.isNull(JSONDATASTR)) {
+                            if (isJSONArray) {
+                                data = jsonObject.getJSONArray(JSONDATASTR);
+                            } else {
+                                data = jsonObject.getJSONObject(JSONDATASTR);
+                            }
                         }
                     }
-                }
-                if (resultCode!=Constants.STATE_CODE_SUCCESS&&jsonObject.has("errorInfo")){
-                    Toast.makeText(mContext,jsonObject.getString("errorInfo"), Toast.LENGTH_SHORT).show();
+                    if (resultCode!=Constants.STATE_CODE_SUCCESS&&jsonObject.has("errorInfo")){
+                        Toast.makeText(mContext,jsonObject.getString("errorInfo"), Toast.LENGTH_SHORT).show();
+                    }
                 }
                 callback.onCall(resultCode, data);
             } catch (JSONException e) {
