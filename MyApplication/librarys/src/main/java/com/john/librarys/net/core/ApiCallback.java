@@ -12,7 +12,7 @@ import java.util.Collection;
  * Api回调，用于ApiHttpClient回调
  * 这里提供不用关系当发生错误时的处理，只需要关注业务处理，
  * <p/>
- * 重写 {@link #onSuccess(Object, ServiceTask)}
+ * 重写 {@link #onSuccess(Object, String,ServiceTask)}
  */
 public class ApiCallback implements Callback {
 
@@ -27,17 +27,17 @@ public class ApiCallback implements Callback {
     }
 
     @Override
-    public void onCall(int resultCode, Object data) {
+    public void onCall(int resultCode,String msg, Object data) {
         //这里对回调进行错误处理
         if (resultCode == Constants.STATE_CODE_SUCCESS) {
             try {
-                onSuccess(data, mServiceTask);
+                onSuccess(data, msg,mServiceTask);
             } catch (Exception e) {
                 LogUtils.e(e);
-                onError(Constants.STATE_CODE_FAILED, data, mServiceTask);
+                onError(Constants.STATE_CODE_FAILED, data, msg,mServiceTask);
             }
         } else {
-            onError(resultCode, data, mServiceTask);
+            onError(resultCode, data,msg, mServiceTask);
         }
     }
 
@@ -47,8 +47,8 @@ public class ApiCallback implements Callback {
      * 一般只需要处理这里的数据
      * 完成以后需要调用 task.complete
      */
-    public void onSuccess(Object data, ServiceTask task) throws Exception {
-        task.complete(Constants.STATE_CODE_SUCCESS, data);
+    public void onSuccess(Object data,String msg, ServiceTask task) throws Exception {
+        task.complete(Constants.STATE_CODE_SUCCESS, msg,data);
     }
 
     /**
@@ -57,8 +57,8 @@ public class ApiCallback implements Callback {
      * @param resultCode
      * @param data       一般这里会返回 jsonobject 或者 jsonarray类型
      */
-    public void onError(int resultCode, Object data, ServiceTask task) {
-        task.complete(resultCode, null);
+    public void onError(int resultCode, Object data, String msg,ServiceTask task) {
+        task.complete(resultCode, msg,null);
     }
 
     public ServiceTask getServiceTask() {

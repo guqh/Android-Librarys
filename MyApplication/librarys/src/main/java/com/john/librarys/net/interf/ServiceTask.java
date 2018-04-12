@@ -29,8 +29,8 @@ public abstract class ServiceTask<T> {
      * @param resultCode
      * @param data
      */
-    public void complete(int resultCode, T data){
-        onComplete(resultCode,data);
+    public void complete(int resultCode,String msg, T data){
+        onComplete(resultCode,msg,data);
 
         //防止，在遍历 listenners 的时候 这些OnCompleteListener里面做 removeListenner的操作,
         //把数据加到另外一个集合容器里面遍历
@@ -47,7 +47,7 @@ public abstract class ServiceTask<T> {
      * @param resultCode
      * @param data
      */
-    protected abstract void onComplete(int resultCode, T data);
+    protected abstract void onComplete(int resultCode,String msg, T data);
 
     /**
      * 取消任务

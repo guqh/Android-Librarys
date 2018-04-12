@@ -61,6 +61,10 @@ public class ApiHttpClient {
      */
     private OkHttpClient mOkHttpClient;
 
+    private final String NOCONNECTIONERROR="no_connection_error";
+    private final String SERVERERROR="server_error";
+    private final String TIMEOUT_ERROR="timeout_error";
+
     private ApiHttpClient(Context context) {
         mRequestQueue = Volley.newRequestQueue(context, new OkHttpStack(new OkHttpClient()));
         mOkHttpClient = new OkHttpClient();
@@ -116,16 +120,7 @@ public class ApiHttpClient {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                if (error.toString().contains("NoConnectionError")){
-                    Toast.makeText(mContext,mContext.getString(R.string.str_no_network), Toast.LENGTH_SHORT).show();
-                }
-                if (error.toString().contains("ServerError")){
-                    Toast.makeText(mContext,mContext.getString(R.string.str_service_error), Toast.LENGTH_SHORT).show();
-                }
-                if (error.toString().contains("TimeoutError")){
-                    Toast.makeText(mContext,mContext.getString(R.string.str_net_time_out), Toast.LENGTH_SHORT).show();
-                }
-                callback.onCall(Constants.STATE_CODE_FAILED, null);
+                handleMsg(callback,error);
             }
         }) {
             @Override
@@ -157,17 +152,7 @@ public class ApiHttpClient {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                if (error.toString().contains("NoConnectionError")){
-                    Toast.makeText(mContext,mContext.getString(R.string.str_no_network), Toast.LENGTH_SHORT).show();
-                }
-                if (error.toString().contains("ServerError")){
-                    Toast.makeText(mContext,mContext.getString(R.string.str_service_error), Toast.LENGTH_SHORT).show();
-                }
-                if (error.toString().contains("TimeoutError")){
-                    Toast.makeText(mContext,mContext.getString(R.string.str_net_time_out), Toast.LENGTH_SHORT).show();
-                }
-                LogUtils.e(error);
-                callback.onCall(Constants.STATE_CODE_FAILED, null);
+                handleMsg(callback,error);
             }
         });
         requestConfig(request);
@@ -191,17 +176,7 @@ public class ApiHttpClient {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                if (error.toString().contains("NoConnectionError")){
-                    Toast.makeText(mContext,mContext.getString(R.string.str_no_network), Toast.LENGTH_SHORT).show();
-                }
-                if (error.toString().contains("ServerError")){
-                    Toast.makeText(mContext,mContext.getString(R.string.str_service_error), Toast.LENGTH_SHORT).show();
-                }
-                if (error.toString().contains("TimeoutError")){
-                    Toast.makeText(mContext,mContext.getString(R.string.str_net_time_out), Toast.LENGTH_SHORT).show();
-                }
-                LogUtils.e(error);
-                callback.onCall(Constants.STATE_CODE_FAILED, null);
+                handleMsg(callback,error);
             }
         }){
             @Override
@@ -257,16 +232,7 @@ public class ApiHttpClient {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                if (error.toString().contains("NoConnectionError")){
-                    Toast.makeText(mContext,mContext.getString(R.string.str_no_network), Toast.LENGTH_SHORT).show();
-                }
-                if (error.toString().contains("ServerError")){
-                    Toast.makeText(mContext,mContext.getString(R.string.str_service_error), Toast.LENGTH_SHORT).show();
-                }
-                if (error.toString().contains("TimeoutError")){
-                    Toast.makeText(mContext,mContext.getString(R.string.str_net_time_out), Toast.LENGTH_SHORT).show();
-                }
-                callback.onCall(Constants.STATE_CODE_FAILED, null);
+                handleMsg(callback,error);
             }
         });
         requestConfig(request);
@@ -291,16 +257,7 @@ public class ApiHttpClient {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                if (error.toString().contains("NoConnectionError")){
-                    Toast.makeText(mContext,mContext.getString(R.string.str_no_network), Toast.LENGTH_SHORT).show();
-                }
-                if (error.toString().contains("ServerError")){
-                    Toast.makeText(mContext,mContext.getString(R.string.str_service_error), Toast.LENGTH_SHORT).show();
-                }
-                if (error.toString().contains("TimeoutError")){
-                    Toast.makeText(mContext,mContext.getString(R.string.str_net_time_out), Toast.LENGTH_SHORT).show();
-                }
-                callback.onCall(Constants.STATE_CODE_FAILED, null);
+                handleMsg(callback,error);
             }
         }){
             @Override
@@ -332,17 +289,7 @@ public class ApiHttpClient {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                if (error.toString().contains("NoConnectionError")){
-                    Toast.makeText(mContext,mContext.getString(R.string.str_no_network), Toast.LENGTH_SHORT).show();
-                }
-                if (error.toString().contains("ServerError")){
-                    Toast.makeText(mContext,mContext.getString(R.string.str_service_error), Toast.LENGTH_SHORT).show();
-                }
-                if (error.toString().contains("TimeoutError")){
-                    Toast.makeText(mContext, mContext.getString(R.string.str_net_time_out), Toast.LENGTH_SHORT).show();
-                }
-                LogUtils.e(error);
-                callback.onCall(Constants.STATE_CODE_FAILED, null);
+                handleMsg(callback,error);
             }
         });
         requestConfig(request);
@@ -363,6 +310,24 @@ public class ApiHttpClient {
     }
 
     /**
+     * 处理网络请求返回的 错误 异常信息
+     * @param callback
+     * @param error
+     */
+    private void handleMsg(Callback callback, VolleyError error){
+        String msg = null;
+        if (error.toString().contains("NoConnectionError")){
+            msg=NOCONNECTIONERROR;
+        }
+        if (error.toString().contains("ServerError")){
+            msg=SERVERERROR;
+        }
+        if (error.toString().contains("TimeoutError")){
+            msg=TIMEOUT_ERROR;
+        }
+        callback.onCall(Constants.STATE_CODE_FAILED, msg,null);
+    }
+    /**
      * 处理网络请求返回的数据
      *
      * @param response
@@ -374,6 +339,7 @@ public class ApiHttpClient {
             LogUtils.i("response=="+response);
             int resultCode = Constants.STATE_CODE_FAILED;
             Object data = null;//返回json数据（JSONObject/JSONArray）
+            String msg=null;
             if (TextUtils.isEmpty(response)){
                 resultCode=Constants.STATE_CODE_FAILED;
             }else {
@@ -390,14 +356,14 @@ public class ApiHttpClient {
                         }
                     }
                 }
-                if (resultCode!=Constants.STATE_CODE_SUCCESS&&jsonObject.has("errorInfo")){
-                    Toast.makeText(mContext,jsonObject.getString("errorInfo"), Toast.LENGTH_SHORT).show();
+                if (jsonObject.has("msg")){
+                    msg=jsonObject.getString("msg");
                 }
             }
-            callback.onCall(resultCode, data);
+            callback.onCall(resultCode, msg,data);
         } catch (JSONException e) {
             LogUtils.e(e);
-            callback.onCall(Constants.STATE_CODE_FAILED, null);
+            callback.onCall(Constants.STATE_CODE_FAILED, null,null);
         }
     }
 
@@ -469,7 +435,7 @@ public class ApiHttpClient {
         } catch (IOException e) {
             e.printStackTrace();
             //异常了，回调错误
-            callback.onCall(Constants.STATE_CODE_FAILED, null);
+            callback.onCall(Constants.STATE_CODE_FAILED, null,null);
             return;
         }
 
@@ -588,7 +554,7 @@ public class ApiHttpClient {
         mOkHttpClient.newCall(request).enqueue(new com.squareup.okhttp.Callback() {
             @Override
             public void onFailure(com.squareup.okhttp.Request request, IOException e) {
-                callback.onCall(Constants.STATE_CODE_FAILED, null);
+                callback.onCall(Constants.STATE_CODE_FAILED, null,null);
             }
 
             @Override
@@ -640,7 +606,7 @@ public class ApiHttpClient {
         call.enqueue(new com.squareup.okhttp.Callback() {
             @Override
             public void onFailure(com.squareup.okhttp.Request request, IOException e) {
-                callback.onCall(Constants.STATE_CODE_FAILED, null);
+                callback.onCall(Constants.STATE_CODE_FAILED, null,null);
             }
 
             @Override
@@ -664,10 +630,10 @@ public class ApiHttpClient {
                         }
                     }
                     fos.flush();
-                    callback.onCall(Constants.STATE_CODE_SUCCESS, file);//将路径file.getAbsolutePath();
+                    callback.onCall(Constants.STATE_CODE_SUCCESS, null,file);//将路径file.getAbsolutePath();
                 } catch (IOException e) {
                     e.printStackTrace();
-                    callback.onCall(Constants.STATE_CODE_FAILED, null);
+                    callback.onCall(Constants.STATE_CODE_FAILED, null,null);
                 } finally {
                     try {
                         if (is != null) is.close();

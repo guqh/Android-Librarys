@@ -7,6 +7,6 @@ package com.john.librarys.net.interf;
  */
 public interface Callback<T> {
 
-    void onCall(int resultCode, T t);
+    void onCall(int resultCode,String msg, T t);
 
 }
