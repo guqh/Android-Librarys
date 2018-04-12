@@ -51,7 +51,7 @@ public abstract class PullToRefreshDetailFragment<T> extends BaseFragment implem
     private ServiceTask<T> startTask() {
         ServiceTask<T> task = new ServiceTask<T>() {
             @Override
-            protected void onComplete(int resultCode, T data) {
+            protected void onComplete(int resultCode, String msg,T data) {
                 PullToRefreshDetailFragment.this.onComplete(resultCode, data);
             }
         };

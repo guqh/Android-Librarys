@@ -105,7 +105,7 @@ public abstract class PullToRefreshPageHelper<T> extends PullToRefreshHelper {
 
         mDataUpdateTask = new ServiceTask<PageResult<T>>() {
             @Override
-            public void onComplete(int resultCode, PageResult<T> pageResult) {
+            public void onComplete(int resultCode, String msg,PageResult<T> pageResult) {
 
                 //预处理
                 resultCode = preTaskResult(resultCode, pageResult);

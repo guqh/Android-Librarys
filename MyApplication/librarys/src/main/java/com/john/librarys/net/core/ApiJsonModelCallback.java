@@ -35,23 +35,23 @@ public class ApiJsonModelCallback extends ApiCallback {
     }
 
     @Override
-    public void onCall(int resultCode, Object data) {
+    public void onCall(int resultCode,String msg, Object data) {
         //增加debug打印
         if (DEBUG) {
             LogUtils.d("url====",mTag);
             LogUtils.json(String.valueOf(data));
         }
 
-        super.onCall(resultCode, data);
+        super.onCall(resultCode,msg, data);
     }
 
     @Override
-    public void onSuccess(Object data, ServiceTask task) throws Exception {
+    public void onSuccess(Object data, String msg,ServiceTask task) throws Exception {
         Object modelForJson = null;
         if (data != null) {
             modelForJson = ApiHelper.getGson().fromJson(data.toString(), mJsonModelType);
         }
-        task.complete(Constants.STATE_CODE_SUCCESS, modelForJson);
+        task.complete(Constants.STATE_CODE_SUCCESS,msg, modelForJson);
     }
 
 }
