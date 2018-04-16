@@ -47,7 +47,6 @@ dependencies {
     compile 'com.github.bumptech.glide:glide:3.7.0'
 
     //刷新框架
-    compile 'cn.bingoogolapple:bga-adapter:1.1.5@aar'
     compile 'cn.bingoogolapple:bga-refreshlayout:1.1.7@aar'
 
     //小猫 loading
@@ -60,7 +59,7 @@ dependencies {
     compile 'com.github.florent37:materialtextfield:1.0.7'
 
     //    https://github.com/supengchao/AutoLayout
-    compile 'com.zhy:autolayout:1.4.3'//屏幕适配 supengchao
+    compile 'com.zhy:autolayout:1.4.5'//屏幕适配 supengchao
 
 //    https://github.com/JakeWharton/butterknife
     compile 'com.jakewharton:butterknife:7.0.1' //注释
