@@ -348,11 +348,15 @@ public class ApiHttpClient {
                     resultCode = jsonObject.getInt("code");//状态码
                 }
                 if(jsonObject.has(JSONDATASTR)&&!TextUtils.isEmpty(jsonObject.getString(JSONDATASTR))){
-                    if (!jsonObject.isNull(JSONDATASTR)) {
-                        if (isJSONArray) {
-                            data = jsonObject.getJSONArray(JSONDATASTR);
-                        } else {
-                            data = jsonObject.getJSONObject(JSONDATASTR);
+                    if (jsonObject.get(JSONDATASTR) instanceof Integer){
+
+                    }else {
+                        if (!jsonObject.isNull(JSONDATASTR)) {
+                            if (isJSONArray) {
+                                data = jsonObject.getJSONArray(JSONDATASTR);
+                            } else {
+                                data = jsonObject.getJSONObject(JSONDATASTR);
+                            }
                         }
                     }
                 }
