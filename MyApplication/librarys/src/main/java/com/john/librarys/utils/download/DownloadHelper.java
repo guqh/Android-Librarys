@@ -125,9 +125,12 @@ public class DownloadHelper implements RequestPermissionsComponent {
 
         Uri storeUri = Uri.parse(downloadInfo.getStorePath());
         if (TextUtils.isEmpty(storeUri.getScheme())) {
-            storeUri = Uri.fromFile(new File(downloadInfo.getStorePath()));
+            File pathFile = new File(downloadInfo.getStorePath());
+            if(pathFile.exists()) {
+                pathFile.delete();
+            }
+            storeUri = Uri.fromFile(pathFile);
         }
-
         request.setDestinationUri(storeUri);
         return request;
     }

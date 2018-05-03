@@ -82,9 +82,9 @@ public class ApkUpgradeHelper implements RequestPermissionsComponent {
         Intent installIntent = new Intent(Intent.ACTION_VIEW);
         installIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         installIntent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-        installIntent.setAction(Intent.ACTION_VIEW);
         installIntent.setDataAndType(fileUri, "application/vnd.android.package-archive");
         mContext.startActivity(installIntent);
+        android.os.Process.killProcess(android.os.Process.myPid());
     }
 
     /**
@@ -92,7 +92,6 @@ public class ApkUpgradeHelper implements RequestPermissionsComponent {
      */
     private void download() {
         String title = PackageHelper.getApplicationName(mContext) + "_" + PackageHelper.getVersionName(mContext);
-
         mDownloadInfo = new DownloadInfo(title, null, mUri, mStorePath, true);
         DownloadHelper downloadHelper = DownloadHelper.getInstance(mContext);
         mDownloadInfo = downloadHelper.download(mDownloadInfo);
