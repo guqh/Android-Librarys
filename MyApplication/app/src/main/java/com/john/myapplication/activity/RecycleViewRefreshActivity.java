@@ -12,6 +12,8 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.john.librarys.uikit.activity.BaseActivity;
+import com.john.librarys.uikit.adapter.baseadapter.MyBaseOnItemChildClickListener;
+import com.john.librarys.uikit.adapter.baseadapter.MyBaseOnRVItemClickListener;
 import com.john.librarys.uikit.widget.Divider;
 import com.john.myapplication.Bean.RefreshModel;
 import com.john.myapplication.R;
@@ -22,8 +24,6 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import cn.bingoogolapple.androidcommon.adapter.BGAOnItemChildClickListener;
-import cn.bingoogolapple.androidcommon.adapter.BGAOnRVItemClickListener;
 import cn.bingoogolapple.bgabanner.BGABanner;
 import cn.bingoogolapple.refreshlayout.BGAMoocStyleRefreshViewHolder;
 import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
@@ -37,7 +37,9 @@ import cn.bingoogolapple.refreshlayout.BGAStickinessRefreshViewHolder;
  *
  * */
 
-public class RecycleViewRefreshActivity extends BaseActivity implements BGARefreshLayout.BGARefreshLayoutDelegate, BGAOnRVItemClickListener, BGAOnItemChildClickListener {
+public class RecycleViewRefreshActivity extends BaseActivity implements BGARefreshLayout.BGARefreshLayoutDelegate,
+                                                                        MyBaseOnRVItemClickListener,
+                                                                        MyBaseOnItemChildClickListener {
 
     @Bind(R.id.rl_recyclerview_refresh)
     BGARefreshLayout mRefreshLayout;

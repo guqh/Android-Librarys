@@ -24,7 +24,7 @@
             android:layout_marginTop="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="拼命加载中。"
+            android:text="@string/str_loading"
             />
 
     </LinearLayout>

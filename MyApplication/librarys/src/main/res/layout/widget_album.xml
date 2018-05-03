@@ -3,7 +3,7 @@
        android:layout_width="match_parent"
        android:layout_height="match_parent">
 
-    <com.zthink.ui.widget.AlbumViewPager
+    <com.john.librarys.uikit.widget.AlbumViewPager
         android:id="@+id/pic_viewpager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
@@ -16,7 +16,7 @@
         android:layout_gravity="bottom"
         android:padding="8dp">
 
-        <com.zthink.ui.widget.AlbumContentView
+        <com.john.librarys.uikit.widget.AlbumContentView
             android:id="@+id/content_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

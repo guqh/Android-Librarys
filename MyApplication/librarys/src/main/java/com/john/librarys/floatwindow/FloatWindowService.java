@@ -8,6 +8,7 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
 import android.text.TextUtils;
+import com.john.librarys.R;
 
 import java.util.List;
 import java.util.Timer;
@@ -90,7 +91,7 @@ public class FloatWindowService extends Service {
 
 	private String getTopActivityInfo() {
 		ActivityManager manager = ((ActivityManager) getApplicationContext().getSystemService(Context.ACTIVITY_SERVICE));
-		String packageName="悬浮窗";
+		String packageName=getString(R.string.str_sus_window);
 		if (Build.VERSION.SDK_INT >= 21) {
 			List<ActivityManager.RunningAppProcessInfo> pis = manager.getRunningAppProcesses();
 			ActivityManager.RunningAppProcessInfo topAppProcess = pis.get(0);
@@ -104,7 +105,7 @@ public class FloatWindowService extends Service {
 			packageName = localRunningTaskInfo.topActivity.getPackageName();
 		}
 		if (TextUtils.isEmpty(packageName)) {
-			packageName = "悬浮窗";
+			packageName = getString(R.string.str_sus_window);
 		}
 		return packageName;
 	}

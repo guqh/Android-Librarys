@@ -15,4 +15,21 @@
     <string name = "str_no_network">您的网络已经进入异次元</string>
     <string name = "str_service_error">研发的小伙伴们，正在拼命修复</string>
 
+
+    <string name = "str_sus_window">悬浮窗</string>
+    <string name = "str_one_more_exit">再按一次退出</string>
+    <string name = "str_loading">拼命加载中。</string>
+    <string name = "str_copy_success">复制成功</string>
+    <string name = "str_app_error">很抱歉，程序出现异常，即将关闭。</string>
+
+    <string-array name="dayOfWeek">
+        <item>星期日</item>
+        <item>星期一</item>
+        <item>星期二</item>
+        <item>星期三</item>
+        <item>星期四</item>
+        <item>星期五</item>
+        <item>星期六</item>
+    </string-array>
+
 </resources>

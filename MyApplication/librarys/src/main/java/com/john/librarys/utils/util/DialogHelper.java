@@ -34,11 +34,11 @@ public class DialogHelper {
 	}
 
 	public static void showDialogOne(String msg, DialogInterface.OnClickListener listener) {
-		showDialogTwo(msg, "确定", listener, null, null, null, false);
+		showDialogTwo(msg, mContext.getString(R.string.confirm), listener, null, null, null, false);
 	}
 
 	public static void showDialogOne(String msg) {
-		showDialogOne(msg, "确定", new DialogInterface.OnClickListener() {
+		showDialogOne(msg, mContext.getString(R.string.confirm), new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				dialog.dismiss();
@@ -99,7 +99,7 @@ public class DialogHelper {
 	}
 
 	public static void showDialogTwo(String msg, DialogInterface.OnClickListener enterListner, DialogInterface.OnClickListener cancelListner, boolean outCancel) {
-		showDialogTwo(msg, "确定", enterListner, "取消", cancelListner, null, outCancel);
+		showDialogTwo(msg, mContext.getString(R.string.confirm), enterListner, mContext.getString(R.string.cancel), cancelListner, null, outCancel);
 	}
     public static void showDialogTwo(String msg, DialogInterface.OnClickListener enterListner, DialogInterface.OnClickListener cancelListner) {
         showDialogTwo(msg, enterListner, cancelListner, false);

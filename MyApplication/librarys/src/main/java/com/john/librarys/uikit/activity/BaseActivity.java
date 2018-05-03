@@ -122,7 +122,7 @@ public class BaseActivity extends AutoLayoutActivity {
         if (mWillExit) {
             if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
                 if ((System.currentTimeMillis() - exitTime) > 2000) {
-                    Toast.makeText(BaseActivity.this, "再按一次退出", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(BaseActivity.this, getString(R.string.str_one_more_exit), Toast.LENGTH_SHORT).show();
                     exitTime =
                             System.currentTimeMillis();
                 } else {

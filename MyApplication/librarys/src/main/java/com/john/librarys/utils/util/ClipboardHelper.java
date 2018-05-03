@@ -4,13 +4,13 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.text.TextUtils;
 import android.widget.Toast;
+import com.john.librarys.R;
 
 /**
  * Created by LinYi.
  */
 public class ClipboardHelper {
 
-    private static final String COPY_SUCCESS = "复制成功";
 
     private ClipboardHelper() {
 
@@ -29,7 +29,7 @@ public class ClipboardHelper {
             content = "";
         }
         cmb.setText(content.trim());
-        Toast.makeText(context, COPY_SUCCESS, Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, context.getString(R.string.str_copy_success), Toast.LENGTH_SHORT).show();
     }
 
     /**

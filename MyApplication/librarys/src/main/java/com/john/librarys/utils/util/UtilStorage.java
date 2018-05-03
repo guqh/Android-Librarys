@@ -34,7 +34,7 @@ public class UtilStorage {
 	 * @param context
 	 * @return
 	 */
-	public static String getRootDir(Context context) {
+	public static String getRootDir(Context context,String appName) {
 		//先找外置存储路径
 		String state = Environment.getExternalStorageState();
 		if(Environment.MEDIA_MOUNTED.equals(state)) {
@@ -42,7 +42,7 @@ public class UtilStorage {
 			//检测存储卡是否可用创建文件/目录
 			if(mExternalStroageState == STORAGE_STATE_INIT) {
 				StringBuilder path = new StringBuilder(rootDir)
-					.append(File.separator).append("yyjg")
+					.append(File.separator).append(appName)
 					.append(File.separator).append(System.currentTimeMillis());
 				File file = new File(path.toString());
 				if(file.mkdirs()) {
@@ -69,7 +69,7 @@ public class UtilStorage {
 				//检测存储卡是否可用创建文件/目录
 				if(mInternalStroageState == STORAGE_STATE_INIT) {
 					StringBuilder path = new StringBuilder(rootDir)
-						.append(File.separator).append("yyjg")
+						.append(File.separator).append(appName)
 						.append(File.separator).append(System.currentTimeMillis());
 					File file = new File(path.toString());
 					if(file.mkdirs()) {

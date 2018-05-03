@@ -54,14 +54,14 @@ public class LoadingDialogFragment extends BaseDialogFragment {
     }
 
     public static void showLoading(Activity activity) {
-        showLoading(activity, "拼命加载中。", false,null);
+        showLoading(activity, activity.getString(R.string.str_loading), false,null);
     }
 
     public static void showLoading(Activity activity, boolean outCancel) {
-        showLoading(activity, "拼命加载中。", outCancel,null);
+        showLoading(activity, activity.getString(R.string.str_loading), outCancel,null);
     }
     public static void showLoading(Activity activity,  ServiceTask task) {
-        showLoading(activity, "拼命加载中。", false,task);
+        showLoading(activity, activity.getString(R.string.str_loading), false,task);
     }
     /**
      * 显示文字的 dialog
