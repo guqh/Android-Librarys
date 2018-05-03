@@ -12,8 +12,6 @@
   -->
 
 <resources>
-    <string name="app_name">Librarys</string>
-
     <string name="cancel">Cancel</string>
     <string name="confirm">Confirm</string>
     <string name="error_unkonw_fail">An unknown erro.</string>
