@@ -75,9 +75,9 @@ public class ApkUpgradeHelper implements RequestPermissionsComponent {
     private void installApk() {
         Uri fileUri = null;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            fileUri = FileProvider.getUriForFile(mContext, mContext.getPackageName() + ".FileProvider", new File(mUri));
+            fileUri = FileProvider.getUriForFile(mContext, mContext.getPackageName() + ".FileProvider", new File(mStorePath));
         } else {
-            fileUri = Uri.fromFile(new File(mUri));
+            fileUri = Uri.fromFile(new File(mStorePath));
         }
         Intent installIntent = new Intent(Intent.ACTION_VIEW);
         installIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
