@@ -127,7 +127,7 @@ public class ApkUpgradeHelper implements RequestPermissionsComponent {
 
         @Override
         public void onPorgress(long downloadId, float progress) {
-
+            // TODO: 2018/5/3  自定义 弹窗
         }
 
         @Override
