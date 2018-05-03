@@ -1,0 +1,30 @@
+<!--
+  ~ Copyright (c) 2018. Beyondsoft Corporation.
+  ~ All Rights Reserved.
+  ~
+  ~ BEYONDSOFT CONFIDENTIALITY
+  ~
+  ~ The information in this file is confidential and privileged from Beyondsoft Corporation,
+  ~ which is intended only for use solely by Beyondsoft Corporation.
+  ~ Disclosure, copying, distribution, or use of the contents of this file by persons other than Beyondsoft Corporation
+  ~ is strictly prohibited and may violate applicable laws.
+  ~
+  -->
+
+<resources>
+    <string name="app_name">Librarys</string>
+
+    <string name="cancel">Cancel</string>
+    <string name="confirm">Confirm</string>
+    <string name="error_unkonw_fail">An unknown erro.</string>
+    <string name="error_network_error">Network access error.</string>
+    <string name="error_network_not_available">Current network is unavailable.</string>
+
+    <string name="modify_num">Modifies the number</string>
+
+    <string name="tag_text">tag</string>
+
+    <string name = "str_net_time_out">Network timeout, please try again later.</string>
+    <string name = "str_no_network">Your network has entered the ISO.</string>
+    <string name = "str_service_error">R &amp; D partners are working hard to fix it</string>
+</resources>
