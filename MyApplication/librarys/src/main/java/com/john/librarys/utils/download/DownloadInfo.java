@@ -15,6 +15,13 @@ public class DownloadInfo {
      * 以太网
      */
     public static final int NETWORK_ETHERNET = ConnectivityManager.TYPE_ETHERNET;
+    public static final int NETWORK_DUMMY = ConnectivityManager.TYPE_DUMMY;
+    public static final int NETWORK_MOBILE_DUN = ConnectivityManager.TYPE_MOBILE_DUN;
+    public static final int NETWORK_VPN = ConnectivityManager.TYPE_VPN;
+    public static final int NETWORK_WIMAX = ConnectivityManager.TYPE_WIMAX;
+    public static final int NETWORK_MOBILE_HIPRI = ConnectivityManager.TYPE_MOBILE_HIPRI;
+    public static final int NETWORK_MOBILE_MMS = ConnectivityManager.TYPE_MOBILE_MMS;
+    public static final int NETWORK_MOBILE_SUPL = ConnectivityManager.TYPE_MOBILE_SUPL;
 
     /**
      * Bit flag for {@link #setAllowedNetworkTypes} corresponding to
@@ -37,7 +44,7 @@ public class DownloadInfo {
     String uri;
     String storePath;
     boolean showNotification = false;
-    int mAllowedNetworkTypes = NETWORK_MOBILE | NETWORK_WIFI | NETWORK_BLUETOOTH | NETWORK_ETHERNET;
+    int mAllowedNetworkTypes = NETWORK_MOBILE | NETWORK_WIFI | NETWORK_BLUETOOTH | NETWORK_ETHERNET | NETWORK_DUMMY | NETWORK_MOBILE_DUN | NETWORK_VPN|NETWORK_WIMAX|NETWORK_MOBILE_HIPRI|NETWORK_MOBILE_MMS|NETWORK_MOBILE_SUPL;
 
     public DownloadInfo(String title, String description, String uri, String storePath, boolean showNotification) {
         this.title = title;
