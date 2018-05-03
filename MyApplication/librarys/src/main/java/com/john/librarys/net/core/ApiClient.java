@@ -5,6 +5,7 @@ import android.content.Context;
 import android.text.TextUtils;
 import com.android.volley.Request;
 import com.apkfuns.logutils.LogUtils;
+import com.john.librarys.net.interf.ProgressCallback;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -19,7 +20,9 @@ public class ApiClient {
     String mUrl;
     Map<String, String> mParams = new HashMap<>();
     String mJsonParams;
+    String mDir;
     ApiCallback mApiCallback;
+    ProgressCallback mProgressCallback;
     Context mContext;
 
     boolean mDoGet = true;//是否使用get 方式请求，
@@ -60,7 +63,27 @@ public class ApiClient {
         mContext = context;
         isJsonParams = true;
     }
-
+    /**
+     * 构建下载服务
+     *
+     * @param context
+     * @param url
+     * @param dir
+     * @param progressCallback
+     */
+    public ApiClient(Context context, String url, String dir, ProgressCallback progressCallback) {
+        mDir = dir;
+        mUrl = url;
+        mProgressCallback = progressCallback;
+        mContext = context;
+    }
+    /**
+     * 下载功能
+     */
+    public void doDownload() {
+        ApiHttpClient apiHttpClient = ApiHelper.getApiHttpClient(mContext);
+        apiHttpClient.download(mUrl,mDir,mProgressCallback);
+    }
 
     /**
      * 转换参数类型转成map<String,String>
