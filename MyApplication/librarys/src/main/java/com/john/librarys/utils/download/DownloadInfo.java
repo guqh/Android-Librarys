@@ -11,6 +11,10 @@ public class DownloadInfo {
      * {@link ConnectivityManager#TYPE_MOBILE}.
      */
     public static final int NETWORK_MOBILE = ConnectivityManager.TYPE_MOBILE;
+    /**
+     * 以太网
+     */
+    public static final int NETWORK_ETHERNET = ConnectivityManager.TYPE_ETHERNET;
 
     /**
      * Bit flag for {@link #setAllowedNetworkTypes} corresponding to
@@ -33,7 +37,7 @@ public class DownloadInfo {
     String uri;
     String storePath;
     boolean showNotification = false;
-    int mAllowedNetworkTypes = NETWORK_MOBILE | NETWORK_WIFI | NETWORK_BLUETOOTH;
+    int mAllowedNetworkTypes = NETWORK_MOBILE | NETWORK_WIFI | NETWORK_BLUETOOTH | NETWORK_ETHERNET;
 
     public DownloadInfo(String title, String description, String uri, String storePath, boolean showNotification) {
         this.title = title;
