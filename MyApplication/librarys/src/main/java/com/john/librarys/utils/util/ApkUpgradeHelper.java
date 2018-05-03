@@ -3,12 +3,16 @@ package com.john.librarys.utils.util;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
+import android.support.v4.content.FileProvider;
 import android.util.Log;
 
 import com.john.librarys.utils.download.DownloadHelper;
 import com.john.librarys.utils.download.DownloadInfo;
 import com.john.librarys.utils.download.DownloadListener;
 import com.john.librarys.utils.permissions.RequestPermissionsComponent;
+
+import java.io.File;
 
 /**
  * 软件更新
@@ -69,9 +73,18 @@ public class ApkUpgradeHelper implements RequestPermissionsComponent {
      * 安装
      */
     private void installApk() {
-        Intent intent = new Intent(Intent.ACTION_VIEW);
-        intent.setDataAndType(Uri.parse(mDownloadInfo.getStorePath()), "application/vnd.android.package-archive");
-        mContext.startActivity(intent);
+        Uri fileUri = null;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            fileUri = FileProvider.getUriForFile(mContext, mContext.getPackageName() + ".FileProvider", new File(mUri));
+        } else {
+            fileUri = Uri.fromFile(new File(mUri));
+        }
+        Intent installIntent = new Intent(Intent.ACTION_VIEW);
+        installIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        installIntent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        installIntent.setAction(Intent.ACTION_VIEW);
+        installIntent.setDataAndType(fileUri, "application/vnd.android.package-archive");
+        mContext.startActivity(installIntent);
     }
 
     /**

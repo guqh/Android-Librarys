@@ -633,9 +633,19 @@ public class ApiHttpClient {
                     }
                     fos.flush();
                     callback.onCall(Constants.STATE_CODE_SUCCESS, null,file);//将路径file.getAbsolutePath();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    callback.onCall(Constants.STATE_CODE_FAILED, null,null);
+                } catch (IOException error) {
+                    error.printStackTrace();
+                    String msg = null;
+                    if (error.toString().contains("NoConnectionError")){
+                        msg=NOCONNECTIONERROR;
+                    }
+                    if (error.toString().contains("ServerError")){
+                        msg=SERVERERROR;
+                    }
+                    if (error.toString().contains("TimeoutError")){
+                        msg=TIMEOUT_ERROR;
+                    }
+                    callback.onCall(Constants.STATE_CODE_FAILED, msg,null);
                 } finally {
                     try {
                         if (is != null) is.close();
