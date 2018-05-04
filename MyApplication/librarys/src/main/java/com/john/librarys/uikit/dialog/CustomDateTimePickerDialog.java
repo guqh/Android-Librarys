@@ -1,10 +1,10 @@
 package com.john.librarys.uikit.dialog;
 
-import android.annotation.TargetApi;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.DatePicker.OnDateChangedListener;
@@ -37,6 +37,7 @@ public class CustomDateTimePickerDialog extends Dialog implements OnDateChangedL
 		mInitDate = initDate;
 	}
 
+	@RequiresApi(api = Build.VERSION_CODES.M)
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -53,8 +54,8 @@ public class CustomDateTimePickerDialog extends Dialog implements OnDateChangedL
 		
 		mDatePicker.init(ca.get(Calendar.YEAR), ca.get(Calendar.MONTH), ca.get(Calendar.DAY_OF_MONTH), this);
 		
-		mTimePicker.setCurrentHour(ca.get(Calendar.HOUR_OF_DAY));
-		mTimePicker.setCurrentMinute(ca.get(Calendar.MINUTE));
+		mTimePicker.setHour(ca.get(Calendar.HOUR_OF_DAY));
+		mTimePicker.setMinute(ca.get(Calendar.MINUTE));
 		mTimePicker.setOnTimeChangedListener(this);
 		
 		findViewById(R.id.submit).setOnClickListener(this);
@@ -114,6 +115,7 @@ public class CustomDateTimePickerDialog extends Dialog implements OnDateChangedL
 	}
 
 
+	@RequiresApi(api = Build.VERSION_CODES.M)
 	@Override
 	public void onClick(View v) {
 		int id = v.getId();
@@ -125,8 +127,8 @@ public class CustomDateTimePickerDialog extends Dialog implements OnDateChangedL
 				ca.set(Calendar.MONTH, mDatePicker.getMonth());
 				ca.set(Calendar.DAY_OF_MONTH, mDatePicker.getDayOfMonth());
 				
-				ca.set(Calendar.HOUR_OF_DAY, mTimePicker.getCurrentHour());
-				ca.set(Calendar.MINUTE, mTimePicker.getCurrentMinute());
+				ca.set(Calendar.HOUR_OF_DAY, mTimePicker.getHour());
+				ca.set(Calendar.MINUTE, mTimePicker.getMinute());
 				Date date = ca.getTime();
 				mOnSelectedListener.onSelected(date);
 			}
@@ -137,23 +139,29 @@ public class CustomDateTimePickerDialog extends Dialog implements OnDateChangedL
 		}
 	}
 	
-	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 	public void setMinDate(Date date){
 		mDatePicker.setMinDate(date.getTime());
 		//TODO 设置 TimePicker 也设置最小值
 	}
 	
-	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 	public void setMaxDate(Date date){
 		mDatePicker.setMaxDate(date.getTime());
 		//TODO 设置 TimePicker 也设置最大值
 	}
-	
+
+	/**
+	 * 设置 日期选择器显示
+	 * @param show
+	 */
 	public void setDateCalendarView(boolean show){
-		mDatePicker.setCalendarViewShown(show);
+		mDatePicker.setVisibility(show ? View.VISIBLE : View.GONE);
 	}
-	
+
+	/**
+	 * 设置 时间选择器显示
+	 * @param show
+	 */
 	public void setDateSpinnersShow(boolean show){
-		mDatePicker.setSpinnersShown(show);
+		mTimePicker.setVisibility(show ? View.VISIBLE : View.GONE);
 	}
 }
