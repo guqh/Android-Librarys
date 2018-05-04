@@ -9,10 +9,12 @@ import android.view.View;
 import com.apkfuns.logutils.LogUtils;
 import com.dd.CircularProgressButton;
 import com.john.librarys.uikit.activity.BaseActivity;
+import com.john.librarys.uikit.dialog.CustomDateTimePickerDialog;
 import com.john.librarys.utils.ContextManager;
 import com.john.myapplication.R;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.Bind;
@@ -67,6 +69,11 @@ public class LoginActivity extends BaseActivity {
                 }
             }
         });
+
+        CustomDateTimePickerDialog dialog = new CustomDateTimePickerDialog(mContext, new Date());
+        dialog.show();
+        dialog.setTimePickerVisible(false);
+//        dialog.setDatePickerVisible(false);
     }
 
     @OnClick(R.id.login)

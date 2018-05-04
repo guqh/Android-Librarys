@@ -152,7 +152,7 @@ public class CustomDateTimePickerDialog extends Dialog implements OnDateChangedL
 	 * 设置 日期选择器显示
 	 * @param show
 	 */
-	public void setDateCalendarView(boolean show){
+	public void setDatePickerVisible(boolean show){
 		mDatePicker.setVisibility(show ? View.VISIBLE : View.GONE);
 	}
 
@@ -160,7 +160,22 @@ public class CustomDateTimePickerDialog extends Dialog implements OnDateChangedL
 	 * 设置 时间选择器显示
 	 * @param show
 	 */
-	public void setDateSpinnersShow(boolean show){
+	public void setTimePickerVisible(boolean show){
 		mTimePicker.setVisibility(show ? View.VISIBLE : View.GONE);
+	}
+
+	/**
+	 *  DatePicker 设置样式
+	 * @param show
+	 */
+	public void setDateCalendarView(boolean show){
+		mDatePicker.setCalendarViewShown(show);
+	}
+	/**
+	 *  DatePicker 设置样式
+	 * @param show
+	 */
+	public void setDateSpinnersShow(boolean show){
+		mDatePicker.setSpinnersShown(show);
 	}
 }

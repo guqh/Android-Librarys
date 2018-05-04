@@ -16,10 +16,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:calendarViewShown="false"
+            android:datePickerMode="spinner"
             android:spinnersShown="true" />
 
         <TimePicker
             android:id="@+id/timepicker"
+            android:timePickerMode="spinner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
