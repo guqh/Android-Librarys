@@ -149,12 +149,10 @@ public class CustomDateTimePickerDialog extends Dialog implements OnDateChangedL
 		//TODO 设置 TimePicker 也设置最大值
 	}
 	
-	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 	public void setDateCalendarView(boolean show){
 		mDatePicker.setCalendarViewShown(show);
 	}
 	
-	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 	public void setDateSpinnersShow(boolean show){
 		mDatePicker.setSpinnersShown(show);
 	}
