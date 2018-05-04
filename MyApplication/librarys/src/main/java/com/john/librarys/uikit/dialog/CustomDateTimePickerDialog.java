@@ -37,7 +37,6 @@ public class CustomDateTimePickerDialog extends Dialog implements OnDateChangedL
 		mInitDate = initDate;
 	}
 
-	@RequiresApi(api = Build.VERSION_CODES.M)
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -54,8 +53,9 @@ public class CustomDateTimePickerDialog extends Dialog implements OnDateChangedL
 		
 		mDatePicker.init(ca.get(Calendar.YEAR), ca.get(Calendar.MONTH), ca.get(Calendar.DAY_OF_MONTH), this);
 		
-		mTimePicker.setHour(ca.get(Calendar.HOUR_OF_DAY));
-		mTimePicker.setMinute(ca.get(Calendar.MINUTE));
+		mTimePicker.setCurrentHour(ca.get(Calendar.HOUR_OF_DAY));
+		mTimePicker.setCurrentMinute(ca.get(Calendar.MINUTE));
+		mTimePicker.setIs24HourView(true);
 		mTimePicker.setOnTimeChangedListener(this);
 		
 		findViewById(R.id.submit).setOnClickListener(this);
@@ -115,7 +115,6 @@ public class CustomDateTimePickerDialog extends Dialog implements OnDateChangedL
 	}
 
 
-	@RequiresApi(api = Build.VERSION_CODES.M)
 	@Override
 	public void onClick(View v) {
 		int id = v.getId();
@@ -127,8 +126,8 @@ public class CustomDateTimePickerDialog extends Dialog implements OnDateChangedL
 				ca.set(Calendar.MONTH, mDatePicker.getMonth());
 				ca.set(Calendar.DAY_OF_MONTH, mDatePicker.getDayOfMonth());
 				
-				ca.set(Calendar.HOUR_OF_DAY, mTimePicker.getHour());
-				ca.set(Calendar.MINUTE, mTimePicker.getMinute());
+				ca.set(Calendar.HOUR_OF_DAY, mTimePicker.getCurrentHour());
+				ca.set(Calendar.MINUTE, mTimePicker.getCurrentMinute());
 				Date date = ca.getTime();
 				mOnSelectedListener.onSelected(date);
 			}
