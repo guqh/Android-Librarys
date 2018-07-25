@@ -190,6 +190,47 @@ public class ApiHttpClient {
         return request;
     }
 
+
+    /***
+     * post请求
+     *
+     * @param url
+     * @param params
+     * @param isJSONArray 返回结果是否是JSONArray
+     * @param callback
+     * @return
+     */
+    public Request doPostAddHeaders(String url, final Map<String, String> params, final boolean isJSONArray, final Callback callback,final String key, final String value) {
+        StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                handleData(response, isJSONArray, callback);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                handleMsg(callback,error);
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                return params;
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String,String> params = new HashMap<>();
+                params.put(key,value);
+                return params;
+            }
+        };
+
+        requestConfig(request);
+
+        mRequestQueue.add(request);
+        return request;
+    }
+
     /**
      * 配置request
      *
@@ -253,6 +294,37 @@ public class ApiHttpClient {
             @Override
             public void onResponse(String response) {
                 handleData(response, isJSONArray, callback);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                handleMsg(callback,error);
+            }
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String,String> params = new HashMap<>();
+                params.put(key,value);
+                return params;
+            }
+        };
+        requestConfig(request);
+        mRequestQueue.add(request);
+        return request;
+    }
+    /**
+     * 请求参数为json格式的字符串get请求<br/>
+     *
+     * @param url
+     * @param jsonParams
+     * @param callback
+     * @return 返回值为JsonObjectRequest
+     */
+    public JsonObjectRequest doGetAddHeaders(String url, String jsonParams,final boolean isJSONArray, final Callback callback , final String key, final String value) {
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, jsonParams, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                handleData(response.toString(), isJSONArray, callback);
             }
         }, new Response.ErrorListener() {
             @Override

@@ -175,12 +175,20 @@ public class ApiClient {
                    request = apiHttpClient.doGet(mUrl, mParams, isCallbackTypeJsonArray(), getApiCallback());
                }
             } else {
-                request = apiHttpClient.doGet(mUrl, mJsonParams,isCallbackTypeJsonArray(), getApiCallback());
+                if (!TextUtils.isEmpty(key)&&!TextUtils.isEmpty(value)){
+                    request = apiHttpClient.doGetAddHeaders(mUrl, mJsonParams,isCallbackTypeJsonArray(), getApiCallback(),key,value);
+                }else {
+                    request = apiHttpClient.doGet(mUrl, mJsonParams,isCallbackTypeJsonArray(), getApiCallback());
+                }
             }
         } else {
             //使用post方式
             if (!isJsonParams) {
-                request = apiHttpClient.doPost(mUrl, mParams, isCallbackTypeJsonArray(), getApiCallback());
+                if (!TextUtils.isEmpty(key)&&!TextUtils.isEmpty(value)){
+                    request = apiHttpClient.doPostAddHeaders(mUrl, mParams,isCallbackTypeJsonArray(), getApiCallback(),key,value);
+                }else {
+                    request = apiHttpClient.doPost(mUrl, mParams, isCallbackTypeJsonArray(), getApiCallback());
+                }
             } else {
                 if (!TextUtils.isEmpty(key)&&!TextUtils.isEmpty(value)){
                     request = apiHttpClient.doPostAddHeaders(mUrl, mJsonParams,isCallbackTypeJsonArray(), getApiCallback(),key,value);

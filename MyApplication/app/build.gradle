@@ -54,7 +54,6 @@ android {
         abortOnError false
     }
 
-
     //修改app 名称
     applicationVariants.all { variant ->
         variant.outputs.each { output ->
