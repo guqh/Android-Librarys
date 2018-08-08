@@ -3,7 +3,6 @@ package com.john.librarys.net.core;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.text.TextUtils;
-import android.widget.Toast;
 import com.android.volley.*;
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -11,7 +10,6 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.apkfuns.logutils.LogUtils;
-import com.john.librarys.R;
 import com.john.librarys.net.Constants;
 import com.john.librarys.net.interf.Callback;
 import com.john.librarys.net.interf.ProgressCallback;
@@ -34,19 +32,19 @@ public class ApiHttpClient {
 
     private static Context mContext;
 
-    public static void init(Context context){
-        mContext=context;
+    public static void init(Context context) {
+        mContext = context;
     }
 
     private final static String TAG = "ApiHttpClient";
     /**
      * 超时时间
      */
-    public static int TIMEOUT_MS = 60000*2;
+    public static int TIMEOUT_MS = 60000 * 2;
     /**
      * 数据字段
      */
-    public static String JSONDATASTR  = "data";
+    public static String JSONDATASTR = "data";
     /**
      * 本类实例
      */
@@ -61,9 +59,9 @@ public class ApiHttpClient {
      */
     private OkHttpClient mOkHttpClient;
 
-    private final String NOCONNECTIONERROR="no_connection_error";
-    private final String SERVERERROR="server_error";
-    private final String TIMEOUT_ERROR="timeout_error";
+    private final String NOCONNECTIONERROR = "no_connection_error";
+    private final String SERVERERROR = "server_error";
+    private final String TIMEOUT_ERROR = "timeout_error";
 
     private ApiHttpClient(Context context) {
         mRequestQueue = Volley.newRequestQueue(context, new OkHttpStack(new OkHttpClient()));
@@ -72,17 +70,20 @@ public class ApiHttpClient {
 
     /**
      * 设置 数据字段
+     *
      * @param dataStr
      */
-    public static void setJsonDateStr( String dataStr){
-        JSONDATASTR=dataStr;
+    public static void setJsonDateStr(String dataStr) {
+        JSONDATASTR = dataStr;
     }
+
     /**
      * 设置 超时时间
+     *
      * @param timeOutMs
      */
-    public static void setTimeOutMs( int timeOutMs){
-        TIMEOUT_MS=timeOutMs;
+    public static void setTimeOutMs(int timeOutMs) {
+        TIMEOUT_MS = timeOutMs;
     }
 
     /**
@@ -111,7 +112,8 @@ public class ApiHttpClient {
      * @param callback
      * @return
      */
-    public Request doPost(String url, final Map<String, String> params, final boolean isJSONArray, final Callback callback) {
+    public Request doPost(String url, final Map<String, String> params, final boolean isJSONArray,
+                          final Callback callback) {
         StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -120,7 +122,7 @@ public class ApiHttpClient {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                handleMsg(callback,error);
+                handleMsg(callback, error);
             }
         }) {
             @Override
@@ -143,22 +145,25 @@ public class ApiHttpClient {
      * @param callback
      * @return 返回值为JsonObjectRequest
      */
-    public JsonObjectRequest doPost(String url, String jsonParams,final boolean isJSONArray, final Callback callback) {
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, jsonParams, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                handleData(response.toString(), isJSONArray, callback);
-            }
-        }, new Response.ErrorListener() {
+    public JsonObjectRequest doPost(String url, String jsonParams, final boolean isJSONArray, final Callback callback) {
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, jsonParams,
+                                                          new Response.Listener<JSONObject>() {
+                                                              @Override
+                                                              public void onResponse(JSONObject response) {
+                                                                  handleData(response.toString(), isJSONArray,
+                                                                             callback);
+                                                              }
+                                                          }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                handleMsg(callback,error);
+                handleMsg(callback, error);
             }
         });
         requestConfig(request);
         mRequestQueue.add(request);
         return request;
     }
+
     /**
      * 请求参数为json格式的字符串post请求<br/>
      *
@@ -167,24 +172,28 @@ public class ApiHttpClient {
      * @param callback
      * @return 返回值为JsonObjectRequest
      */
-    public JsonObjectRequest doPostAddHeaders(String url, String jsonParams,final boolean isJSONArray, final Callback callback, final String key, final String value) {
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, jsonParams, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                handleData(response.toString(), isJSONArray, callback);
-            }
-        }, new Response.ErrorListener() {
+    public JsonObjectRequest doPostAddHeaders(String url, String jsonParams, final boolean isJSONArray,
+                                              final Callback callback, final String key, final String value) {
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, jsonParams,
+                                                          new Response.Listener<JSONObject>() {
+                                                              @Override
+                                                              public void onResponse(JSONObject response) {
+                                                                  handleData(response.toString(), isJSONArray,
+                                                                             callback);
+                                                              }
+                                                          }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                handleMsg(callback,error);
+                handleMsg(callback, error);
             }
-        }){
+        }) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String,String> params = new HashMap<>();
-                params.put(key,value);
+                Map<String, String> params = new HashMap<>();
+                params.put(key, value);
                 return params;
-            }};
+            }
+        };
         requestConfig(request);
         mRequestQueue.add(request);
         return request;
@@ -200,7 +209,8 @@ public class ApiHttpClient {
      * @param callback
      * @return
      */
-    public Request doPostAddHeaders(String url, final Map<String, String> params, final boolean isJSONArray, final Callback callback,final String key, final String value) {
+    public Request doPostAddHeaders(String url, final Map<String, String> params, final boolean isJSONArray,
+                                    final Callback callback, final String key, final String value) {
         StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -209,7 +219,7 @@ public class ApiHttpClient {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                handleMsg(callback,error);
+                handleMsg(callback, error);
             }
         }) {
             @Override
@@ -219,8 +229,8 @@ public class ApiHttpClient {
 
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String,String> params = new HashMap<>();
-                params.put(key,value);
+                Map<String, String> params = new HashMap<>();
+                params.put(key, value);
                 return params;
             }
         };
@@ -264,22 +274,25 @@ public class ApiHttpClient {
      * @param callback
      * @return
      */
-    public Request doGet(final String url, final Map<String, String> params, final boolean isJSONArray, final Callback callback) {
-        StringRequest request = new StringRequest(Request.Method.GET, fixUrl(Request.Method.GET, url, params), new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                handleData(response, isJSONArray, callback);
-            }
-        }, new Response.ErrorListener() {
+    public Request doGet(final String url, final Map<String, String> params, final boolean isJSONArray,
+                         final Callback callback) {
+        StringRequest request = new StringRequest(Request.Method.GET, fixUrl(Request.Method.GET, url, params),
+                                                  new Response.Listener<String>() {
+                                                      @Override
+                                                      public void onResponse(String response) {
+                                                          handleData(response, isJSONArray, callback);
+                                                      }
+                                                  }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                handleMsg(callback,error);
+                handleMsg(callback, error);
             }
         });
         requestConfig(request);
         mRequestQueue.add(request);
         return request;
     }
+
     /**
      * GET请求
      *
@@ -289,53 +302,24 @@ public class ApiHttpClient {
      * @param callback
      * @return
      */
-    public Request doGetAddHeaders(final String url, final Map<String, String> params, final boolean isJSONArray, final Callback callback, final String key, final String value) {
-        StringRequest request = new StringRequest(Request.Method.GET, fixUrl(Request.Method.GET, url, params), new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                handleData(response, isJSONArray, callback);
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                handleMsg(callback,error);
-            }
-        }){
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String,String> params = new HashMap<>();
-                params.put(key,value);
-                return params;
-            }
-        };
-        requestConfig(request);
-        mRequestQueue.add(request);
-        return request;
-    }
-    /**
-     * 请求参数为json格式的字符串get请求<br/>
-     *
-     * @param url
-     * @param jsonParams
-     * @param callback
-     * @return 返回值为JsonObjectRequest
-     */
-    public JsonObjectRequest doGetAddHeaders(String url, String jsonParams,final boolean isJSONArray, final Callback callback , final String key, final String value) {
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, jsonParams, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                handleData(response.toString(), isJSONArray, callback);
-            }
-        }, new Response.ErrorListener() {
+    public Request doGetAddHeaders(final String url, final Map<String, String> params, final boolean isJSONArray,
+                                   final Callback callback, final String key, final String value) {
+        StringRequest request = new StringRequest(Request.Method.GET, fixUrl(Request.Method.GET, url, params),
+                                                  new Response.Listener<String>() {
+                                                      @Override
+                                                      public void onResponse(String response) {
+                                                          handleData(response, isJSONArray, callback);
+                                                      }
+                                                  }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                handleMsg(callback,error);
+                handleMsg(callback, error);
             }
-        }){
+        }) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String,String> params = new HashMap<>();
-                params.put(key,value);
+                Map<String, String> params = new HashMap<>();
+                params.put(key, value);
                 return params;
             }
         };
@@ -352,16 +336,53 @@ public class ApiHttpClient {
      * @param callback
      * @return 返回值为JsonObjectRequest
      */
-    public JsonObjectRequest doGet(String url, String jsonParams,final boolean isJSONArray, final Callback callback) {
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, jsonParams, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                handleData(response.toString(), isJSONArray, callback);
-            }
-        }, new Response.ErrorListener() {
+    public JsonObjectRequest doGetAddHeaders(String url, String jsonParams, final boolean isJSONArray,
+                                             final Callback callback, final String key, final String value) {
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, jsonParams,
+                                                          new Response.Listener<JSONObject>() {
+                                                              @Override
+                                                              public void onResponse(JSONObject response) {
+                                                                  handleData(response.toString(), isJSONArray,
+                                                                             callback);
+                                                              }
+                                                          }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                handleMsg(callback,error);
+                handleMsg(callback, error);
+            }
+        }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put(key, value);
+                return params;
+            }
+        };
+        requestConfig(request);
+        mRequestQueue.add(request);
+        return request;
+    }
+
+    /**
+     * 请求参数为json格式的字符串get请求<br/>
+     *
+     * @param url
+     * @param jsonParams
+     * @param callback
+     * @return 返回值为JsonObjectRequest
+     */
+    public JsonObjectRequest doGet(String url, String jsonParams, final boolean isJSONArray, final Callback callback) {
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, jsonParams,
+                                                          new Response.Listener<JSONObject>() {
+                                                              @Override
+                                                              public void onResponse(JSONObject response) {
+                                                                  handleData(response.toString(), isJSONArray,
+                                                                             callback);
+                                                              }
+                                                          }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                handleMsg(callback, error);
             }
         });
         requestConfig(request);
@@ -383,22 +404,24 @@ public class ApiHttpClient {
 
     /**
      * 处理网络请求返回的 错误 异常信息
+     *
      * @param callback
      * @param error
      */
-    private void handleMsg(Callback callback, VolleyError error){
+    private void handleMsg(Callback callback, VolleyError error) {
         String msg = null;
-        if (error.toString().contains("NoConnectionError")){
-            msg=NOCONNECTIONERROR;
+        if (error.toString().contains("NoConnectionError")) {
+            msg = NOCONNECTIONERROR;
         }
-        if (error.toString().contains("ServerError")){
-            msg=SERVERERROR;
+        if (error.toString().contains("ServerError")) {
+            msg = SERVERERROR;
         }
-        if (error.toString().contains("TimeoutError")){
-            msg=TIMEOUT_ERROR;
+        if (error.toString().contains("TimeoutError")) {
+            msg = TIMEOUT_ERROR;
         }
-        callback.onCall(Constants.STATE_CODE_FAILED, msg,null);
+        callback.onCall(Constants.STATE_CODE_FAILED, msg, null);
     }
+
     /**
      * 处理网络请求返回的数据
      *
@@ -408,19 +431,19 @@ public class ApiHttpClient {
      */
     private void handleData(String response, boolean isJSONArray, Callback callback) {
         try {
-            LogUtils.i("response=="+response);
+            LogUtils.i("response==" + response);
             int resultCode = Constants.STATE_CODE_FAILED;
             Object data = null;//返回json数据（JSONObject/JSONArray）
-            String msg=null;
-            if (TextUtils.isEmpty(response)){
-                resultCode=Constants.STATE_CODE_FAILED;
-            }else {
+            String msg = null;
+            if (TextUtils.isEmpty(response)) {
+                resultCode = Constants.STATE_CODE_FAILED;
+            } else {
                 JSONObject jsonObject = new JSONObject(response);
-                if (jsonObject.has("code")){
+                if (jsonObject.has("code")) {
                     resultCode = jsonObject.getInt("code");//状态码
                 }
-                if(jsonObject.has(JSONDATASTR)&&!TextUtils.isEmpty(jsonObject.getString(JSONDATASTR))){
-                    if (!(jsonObject.get(JSONDATASTR) instanceof Integer)){
+                if (jsonObject.has(JSONDATASTR) && !TextUtils.isEmpty(jsonObject.getString(JSONDATASTR))) {
+                    if (!(jsonObject.get(JSONDATASTR) instanceof Integer)) {
                         if (!jsonObject.isNull(JSONDATASTR)) {
                             if (isJSONArray) {
                                 data = jsonObject.getJSONArray(JSONDATASTR);
@@ -430,14 +453,14 @@ public class ApiHttpClient {
                         }
                     }
                 }
-                if (jsonObject.has("msg")){
-                    msg=jsonObject.getString("msg");
+                if (jsonObject.has("msg")) {
+                    msg = jsonObject.getString("msg");
                 }
             }
-            callback.onCall(resultCode, msg,data);
+            callback.onCall(resultCode, msg, data);
         } catch (JSONException e) {
             LogUtils.e(e);
-            callback.onCall(Constants.STATE_CODE_FAILED, null,null);
+            callback.onCall(Constants.STATE_CODE_FAILED, null, null);
         }
     }
 
@@ -468,7 +491,6 @@ public class ApiHttpClient {
         return fixedUrl;
     }
 
-
     /**
      * ----------------------------以下为上传下载-------------------------------------------
      */
@@ -482,7 +504,8 @@ public class ApiHttpClient {
      * @param callback
      * @throws IOException
      */
-    public void uploadByBitmap(String url, Map<String, String> params, Map<String, List<Bitmap>> bitmapMap, final ProgressCallback callback) {
+    public void uploadByBitmap(String url, Map<String, String> params, Map<String, List<Bitmap>> bitmapMap,
+                               final ProgressCallback callback) {
 
         try {
             Map<String, List<byte[]>> byteMap = new HashMap<>();
@@ -509,7 +532,7 @@ public class ApiHttpClient {
         } catch (IOException e) {
             e.printStackTrace();
             //异常了，回调错误
-            callback.onCall(Constants.STATE_CODE_FAILED, null,null);
+            callback.onCall(Constants.STATE_CODE_FAILED, null, null);
             return;
         }
 
@@ -527,7 +550,8 @@ public class ApiHttpClient {
      * @param fileByteArrays Map<String, List<byte[]>>
      * @param callback       回调
      */
-    public void uploadByByteArray(String url, Map<String, String> params, Map<String, List<byte[]>> fileByteArrays, final ProgressCallback callback) {
+    public void uploadByByteArray(String url, Map<String, String> params, Map<String, List<byte[]>> fileByteArrays,
+                                  final ProgressCallback callback) {
         MultipartBuilder builder = new MultipartBuilder().type(MultipartBuilder.FORM);
         addParams(params, builder);
         if (fileByteArrays != null && !fileByteArrays.isEmpty()) {
@@ -543,8 +567,8 @@ public class ApiHttpClient {
                     String fileName = String.valueOf(System.currentTimeMillis());
 
                     builder.addPart(Headers.of("Content-Disposition",
-                                               "form-data; name=\"" + fileKeyName + "\"; filename=\"" + fileName + "\""),
-                                    fileBody);
+                                               "form-data; name=\"" + fileKeyName + "\"; filename=\"" + fileName +
+                                               "\""), fileBody);
                 }
             }
         }
@@ -569,7 +593,8 @@ public class ApiHttpClient {
      * @param files    文件参数
      * @param callback 回调
      */
-    public void upload(String url, Map<String, String> params, Map<String, File> files, final ProgressCallback callback) {
+    public void upload(String url, Map<String, String> params, Map<String, File> files,
+                       final ProgressCallback callback) {
         MultipartBuilder builder = new MultipartBuilder().type(MultipartBuilder.FORM);
         addParams(params, builder);
         if (files != null && !files.isEmpty()) {
@@ -597,7 +622,8 @@ public class ApiHttpClient {
      * @param files    文件参数
      * @param callback 回调
      */
-    public void upload2(String url, Map<String, String> params, Map<String, List<File>> files, final ProgressCallback callback) {
+    public void upload2(String url, Map<String, String> params, Map<String, List<File>> files,
+                        final ProgressCallback callback) {
         MultipartBuilder builder = new MultipartBuilder().type(MultipartBuilder.FORM);
         addParams(params, builder);
         if (files != null && !files.isEmpty()) {
@@ -608,8 +634,8 @@ public class ApiHttpClient {
                     String fileName = file.getName();//得到文件本身自带文件名
                     fileBody = RequestBody.create(MediaType.parse(guessMimeType(fileName)), file);
                     builder.addPart(Headers.of("Content-Disposition",
-                                               "form-data; name=\"" + fileKeyName + "\"; filename=\"" + fileName + "\""),
-                                    fileBody);
+                                               "form-data; name=\"" + fileKeyName + "\"; filename=\"" + fileName +
+                                               "\""), fileBody);
                 }
             }
             CountingRequestBody countingRequestBody = wrapRequestBody(callback, builder);
@@ -627,37 +653,43 @@ public class ApiHttpClient {
      * @param files    文件参数
      * @param callback 回调
      */
-    public void uploadAddHeader(String url, Map<String, String> params, Map<String, List<File>> files,String hearderKey,String hearderValue, final ProgressCallback callback) {
-        MultipartBuilder builder = new MultipartBuilder().type(MultipartBuilder.FORM);
-        addParams(params, builder);
-        if (files != null && !files.isEmpty()) {
-            RequestBody fileBody;
-            for (String fileKeyName : files.keySet()) {
-                List<File> fileList = files.get(fileKeyName);//得到文件列表
-                for (File file : fileList) {
-                    String fileName = file.getName();//得到文件本身自带文件名
-                    fileBody = RequestBody.create(MediaType.parse(guessMimeType(fileName)), file);
-                    builder.addPart(Headers.of("Content-Disposition",
-                                               "form-data; name=\"" + fileKeyName + "\"; filename=\"" + fileName + "\""),
-                                    fileBody);
+    public void uploadAddHeader(String url, Map<String, String> params, Map<String, List<File>> files,
+                                String hearderKey, String hearderValue, final ProgressCallback callback) {
+        try {
+            MultipartBuilder builder = new MultipartBuilder().type(MultipartBuilder.FORM);
+            addParams(params, builder);
+            if (files != null && !files.isEmpty()) {
+                RequestBody fileBody;
+                for (String fileKeyName : files.keySet()) {
+                    List<File> fileList = files.get(fileKeyName);//得到文件列表
+                    for (File file : fileList) {
+                        String fileName = file.getName();//得到文件本身自带文件名
+                        fileBody = RequestBody.create(MediaType.parse(guessMimeType(fileName)), file);
+                        builder.addPart(Headers.of("Content-Disposition",
+                                                   "form-data; name=\"" + fileKeyName + "\"; filename=\"" + fileName +
+                                                   "\""), fileBody);
+                    }
                 }
+
+                Thread.sleep(5000);
+
+                CountingRequestBody countingRequestBody = wrapRequestBody(callback, builder);
+                doUploadAddHearder(hearderKey, hearderValue, url, callback, countingRequestBody);
             }
-            CountingRequestBody countingRequestBody = wrapRequestBody(callback, builder);
-            doUploadAddHearder(hearderKey,hearderValue,url, callback, countingRequestBody);
+        } catch (Exception e) {
+            LogUtils.e(e);
         }
     }
 
-    private void doUploadAddHearder(String hearderKey,String hearderValue,String url, final ProgressCallback callback, CountingRequestBody countingRequestBody) {
-        com.squareup.okhttp.Request request = new com.squareup.okhttp.Request.Builder()
-            .url(url)
-            .post(countingRequestBody)
-            .addHeader(hearderKey,hearderValue)
-            .build();
+    private void doUploadAddHearder(String hearderKey, String hearderValue, String url, final ProgressCallback callback,
+                                    CountingRequestBody countingRequestBody) {
+        com.squareup.okhttp.Request request = new com.squareup.okhttp.Request.Builder().url(url).post(
+            countingRequestBody).addHeader(hearderKey, hearderValue).build();
         //执行
         mOkHttpClient.newCall(request).enqueue(new com.squareup.okhttp.Callback() {
             @Override
             public void onFailure(com.squareup.okhttp.Request request, IOException e) {
-                callback.onCall(Constants.STATE_CODE_FAILED, null,null);
+                callback.onCall(Constants.STATE_CODE_FAILED, null, null);
             }
 
             @Override
@@ -669,15 +701,13 @@ public class ApiHttpClient {
     }
 
     private void doUpload(String url, final ProgressCallback callback, CountingRequestBody countingRequestBody) {
-        com.squareup.okhttp.Request request = new com.squareup.okhttp.Request.Builder()
-            .url(url)
-            .post(countingRequestBody)
-            .build();
+        com.squareup.okhttp.Request request = new com.squareup.okhttp.Request.Builder().url(url).post(
+            countingRequestBody).build();
         //执行
         mOkHttpClient.newCall(request).enqueue(new com.squareup.okhttp.Callback() {
             @Override
             public void onFailure(com.squareup.okhttp.Request request, IOException e) {
-                callback.onCall(Constants.STATE_CODE_FAILED, null,null);
+                callback.onCall(Constants.STATE_CODE_FAILED, null, null);
             }
 
             @Override
@@ -722,14 +752,12 @@ public class ApiHttpClient {
      * @param callback
      */
     public void download(final String url, final String targetDir, final ProgressCallback callback) {
-        final com.squareup.okhttp.Request request = new com.squareup.okhttp.Request.Builder()
-            .url(url)
-            .build();
+        final com.squareup.okhttp.Request request = new com.squareup.okhttp.Request.Builder().url(url).build();
         final Call call = mOkHttpClient.newCall(request);
         call.enqueue(new com.squareup.okhttp.Callback() {
             @Override
             public void onFailure(com.squareup.okhttp.Request request, IOException e) {
-                callback.onCall(Constants.STATE_CODE_FAILED, null,null);
+                callback.onCall(Constants.STATE_CODE_FAILED, null, null);
             }
 
             @Override
@@ -753,27 +781,31 @@ public class ApiHttpClient {
                         }
                     }
                     fos.flush();
-                    callback.onCall(Constants.STATE_CODE_SUCCESS, null,file);//将路径file.getAbsolutePath();
+                    callback.onCall(Constants.STATE_CODE_SUCCESS, null, file);//将路径file.getAbsolutePath();
                 } catch (IOException error) {
                     error.printStackTrace();
                     String msg = null;
-                    if (error.toString().contains("NoConnectionError")){
-                        msg=NOCONNECTIONERROR;
+                    if (error.toString().contains("NoConnectionError")) {
+                        msg = NOCONNECTIONERROR;
                     }
-                    if (error.toString().contains("ServerError")){
-                        msg=SERVERERROR;
+                    if (error.toString().contains("ServerError")) {
+                        msg = SERVERERROR;
                     }
-                    if (error.toString().contains("TimeoutError")){
-                        msg=TIMEOUT_ERROR;
+                    if (error.toString().contains("TimeoutError")) {
+                        msg = TIMEOUT_ERROR;
                     }
-                    callback.onCall(Constants.STATE_CODE_FAILED, msg,null);
+                    callback.onCall(Constants.STATE_CODE_FAILED, msg, null);
                 } finally {
                     try {
-                        if (is != null) is.close();
+                        if (is != null) {
+                            is.close();
+                        }
                     } catch (IOException e) {
                     }
                     try {
-                        if (fos != null) fos.close();
+                        if (fos != null) {
+                            fos.close();
+                        }
                     } catch (IOException e) {
                     }
                 }
