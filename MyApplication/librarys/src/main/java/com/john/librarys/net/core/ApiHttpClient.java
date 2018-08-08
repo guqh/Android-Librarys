@@ -618,6 +618,55 @@ public class ApiHttpClient {
 
     }
 
+    /**
+     * 注意：此处callback的处理位于子线程，当需要在UI线程上更新进度时，必须手动post到主线程
+     * <br/>该方法用于一个file的key对应多个文件
+     *
+     * @param url      接口地址
+     * @param params   接口参数
+     * @param files    文件参数
+     * @param callback 回调
+     */
+    public void uploadAddHeader(String url, Map<String, String> params, Map<String, List<File>> files,String hearderKey,String hearderValue, final ProgressCallback callback) {
+        MultipartBuilder builder = new MultipartBuilder().type(MultipartBuilder.FORM);
+        addParams(params, builder);
+        if (files != null && !files.isEmpty()) {
+            RequestBody fileBody;
+            for (String fileKeyName : files.keySet()) {
+                List<File> fileList = files.get(fileKeyName);//得到文件列表
+                for (File file : fileList) {
+                    String fileName = file.getName();//得到文件本身自带文件名
+                    fileBody = RequestBody.create(MediaType.parse(guessMimeType(fileName)), file);
+                    builder.addPart(Headers.of("Content-Disposition",
+                                               "form-data; name=\"" + fileKeyName + "\"; filename=\"" + fileName + "\""),
+                                    fileBody);
+                }
+            }
+            CountingRequestBody countingRequestBody = wrapRequestBody(callback, builder);
+            doUploadAddHearder(hearderKey,hearderValue,url, callback, countingRequestBody);
+        }
+    }
+
+    private void doUploadAddHearder(String hearderKey,String hearderValue,String url, final ProgressCallback callback, CountingRequestBody countingRequestBody) {
+        com.squareup.okhttp.Request request = new com.squareup.okhttp.Request.Builder()
+            .url(url)
+            .post(countingRequestBody)
+            .addHeader(hearderKey,hearderValue)
+            .build();
+        //执行
+        mOkHttpClient.newCall(request).enqueue(new com.squareup.okhttp.Callback() {
+            @Override
+            public void onFailure(com.squareup.okhttp.Request request, IOException e) {
+                callback.onCall(Constants.STATE_CODE_FAILED, null,null);
+            }
+
+            @Override
+            public void onResponse(com.squareup.okhttp.Response response) throws IOException {
+                String result = response.body().string();
+                handleData(result, false, callback);
+            }
+        });
+    }
 
     private void doUpload(String url, final ProgressCallback callback, CountingRequestBody countingRequestBody) {
         com.squareup.okhttp.Request request = new com.squareup.okhttp.Request.Builder()
