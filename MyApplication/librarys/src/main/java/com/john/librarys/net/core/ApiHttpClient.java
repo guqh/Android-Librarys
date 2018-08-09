@@ -671,8 +671,6 @@ public class ApiHttpClient {
                     }
                 }
 
-                Thread.sleep(5000);
-
                 CountingRequestBody countingRequestBody = wrapRequestBody(callback, builder);
                 doUploadAddHearder(hearderKey, hearderValue, url, callback, countingRequestBody);
             }
