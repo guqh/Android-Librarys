@@ -84,7 +84,7 @@ public class LogUtilHelper {
         if (FileUtil.hasSdcard()) {
             path = getGlobalpath();
         } else {// 如果SD卡不存在，就保存到本应用的目录下
-            path = mContext.getFilesDir().getAbsolutePath() + File.separator + "log";
+            path = mContext.getFilesDir().getAbsolutePath() + File.separator + appName + File.separator+ "log" + File.separator;
         }
         return path;
     }
@@ -94,7 +94,7 @@ public class LogUtilHelper {
      * @param autoClearDay 文件保存天数
      */
     public void autoClear(final int autoClearDay) {
-        FileUtil.delete(getGlobalpath(), new FilenameFilter() {
+        FileUtil.delete(getFilePath(), new FilenameFilter() {
 
             @Override
             public boolean accept(File file, String filename) {

@@ -212,7 +212,7 @@ public class CrashHandler implements UncaughtExceptionHandler {
         if (FileUtil.hasSdcard()) {
             path = getGlobalpath();
         } else {// 如果SD卡不存在，就保存到本应用的目录下
-            path = mContext.getFilesDir().getAbsolutePath() + File.separator + "miniGPS";
+            path = mContext.getFilesDir().getAbsolutePath() + File.separator + appName + File.separator + "crash" +  File.separator;
         }
         File dir = new File(path);
         if (!dir.exists())
