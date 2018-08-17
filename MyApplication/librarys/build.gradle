@@ -47,7 +47,7 @@ dependencies {
     compile 'com.github.bumptech.glide:glide:3.7.0'
 
     //刷新框架
-    compile 'cn.bingoogolapple:bga-refreshlayout:1.1.7@aar'
+    compile 'cn.bingoogolapple:bga-refreshlayout:1.0.7@aar'
 
     //小猫 loading
     compile 'com.roger.catloadinglibrary:catloadinglibrary:1.0.1'
