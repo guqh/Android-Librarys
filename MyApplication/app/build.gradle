@@ -59,7 +59,7 @@ android {
         variant.outputs.each { output ->
             def outputFile = output.outputFile
             if (outputFile != null && outputFile.name.endsWith('.apk')) {
-                File outputDirectory = new File(outputFile.parent);
+                File outputDirectory = new File(outputFile.parent)
                 def fileName = "JohnDemo_v${defaultConfig.versionName}_${releaseTime()}_${variant.name}.apk"
                 output.outputFile = new File(outputDirectory, fileName)
             }
