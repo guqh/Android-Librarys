@@ -27,8 +27,7 @@ public class ApiClient {
 
     boolean mDoGet = true;//是否使用get 方式请求，
     boolean isJsonParams = false;//参数是否为json格式string
-    private String value;
-    private String key;
+    private Map<String, String> headers;
 
     /**
      * 构建标准的 map参数的 client
@@ -120,19 +119,17 @@ public class ApiClient {
     /**
      * 使用get
      */
-    public void doGetAddHeaders(String key,String value) {
+    public void doGetAddHeaders(Map<String, String> headers) {
         mDoGet = true;
-        this.key=key;
-        this.value=value;
+        this.headers=headers;
         execute();
     }
     /**
      * 使用post
      */
-    public void doPostAddHeaders(String key,String value) {
+    public void doPostAddHeaders(Map<String, String> headers) {
         mDoGet = false;
-        this.key=key;
-        this.value=value;
+        this.headers=headers;
         execute();
     }
 
@@ -169,14 +166,14 @@ public class ApiClient {
         if (mDoGet) {
             //使用Get方式
             if (!isJsonParams) {
-               if (!TextUtils.isEmpty(key)&&!TextUtils.isEmpty(value)){
-                    request = apiHttpClient.doGetAddHeaders(mUrl, mParams,isCallbackTypeJsonArray(), getApiCallback(),key,value);
+               if (headers != null){
+                    request = apiHttpClient.doGetAddHeaders(mUrl, mParams,isCallbackTypeJsonArray(), getApiCallback(),headers);
                 }else {
                    request = apiHttpClient.doGet(mUrl, mParams, isCallbackTypeJsonArray(), getApiCallback());
                }
             } else {
-                if (!TextUtils.isEmpty(key)&&!TextUtils.isEmpty(value)){
-                    request = apiHttpClient.doGetAddHeaders(mUrl, mJsonParams,isCallbackTypeJsonArray(), getApiCallback(),key,value);
+                if (headers != null){
+                    request = apiHttpClient.doGetAddHeaders(mUrl, mJsonParams,isCallbackTypeJsonArray(), getApiCallback(),headers);
                 }else {
                     request = apiHttpClient.doGet(mUrl, mJsonParams,isCallbackTypeJsonArray(), getApiCallback());
                 }
@@ -184,14 +181,14 @@ public class ApiClient {
         } else {
             //使用post方式
             if (!isJsonParams) {
-                if (!TextUtils.isEmpty(key)&&!TextUtils.isEmpty(value)){
-                    request = apiHttpClient.doPostAddHeaders(mUrl, mParams,isCallbackTypeJsonArray(), getApiCallback(),key,value);
+                if (headers != null){
+                    request = apiHttpClient.doPostAddHeaders(mUrl, mParams,isCallbackTypeJsonArray(), getApiCallback(),headers);
                 }else {
                     request = apiHttpClient.doPost(mUrl, mParams, isCallbackTypeJsonArray(), getApiCallback());
                 }
             } else {
-                if (!TextUtils.isEmpty(key)&&!TextUtils.isEmpty(value)){
-                    request = apiHttpClient.doPostAddHeaders(mUrl, mJsonParams,isCallbackTypeJsonArray(), getApiCallback(),key,value);
+                if (headers != null){
+                    request = apiHttpClient.doPostAddHeaders(mUrl, mJsonParams,isCallbackTypeJsonArray(), getApiCallback(),headers);
                 }else {
                     request = apiHttpClient.doPost(mUrl, mJsonParams,isCallbackTypeJsonArray(), getApiCallback());
                 }

@@ -173,7 +173,7 @@ public class ApiHttpClient {
      * @return 返回值为JsonObjectRequest
      */
     public JsonObjectRequest doPostAddHeaders(String url, String jsonParams, final boolean isJSONArray,
-                                              final Callback callback, final String key, final String value) {
+                                              final Callback callback, final Map<String, String> headers) {
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, jsonParams,
                                                           new Response.Listener<JSONObject>() {
                                                               @Override
@@ -189,9 +189,7 @@ public class ApiHttpClient {
         }) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String, String> params = new HashMap<>();
-                params.put(key, value);
-                return params;
+                return headers;
             }
         };
         requestConfig(request);
@@ -210,7 +208,7 @@ public class ApiHttpClient {
      * @return
      */
     public Request doPostAddHeaders(String url, final Map<String, String> params, final boolean isJSONArray,
-                                    final Callback callback, final String key, final String value) {
+                                    final Callback callback, final Map<String, String> headers) {
         StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -229,9 +227,7 @@ public class ApiHttpClient {
 
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String, String> params = new HashMap<>();
-                params.put(key, value);
-                return params;
+                return headers;
             }
         };
 
@@ -303,7 +299,7 @@ public class ApiHttpClient {
      * @return
      */
     public Request doGetAddHeaders(final String url, final Map<String, String> params, final boolean isJSONArray,
-                                   final Callback callback, final String key, final String value) {
+                                   final Callback callback, final Map<String, String> headers) {
         StringRequest request = new StringRequest(Request.Method.GET, fixUrl(Request.Method.GET, url, params),
                                                   new Response.Listener<String>() {
                                                       @Override
@@ -318,9 +314,7 @@ public class ApiHttpClient {
         }) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String, String> params = new HashMap<>();
-                params.put(key, value);
-                return params;
+                return headers;
             }
         };
         requestConfig(request);
@@ -337,7 +331,7 @@ public class ApiHttpClient {
      * @return 返回值为JsonObjectRequest
      */
     public JsonObjectRequest doGetAddHeaders(String url, String jsonParams, final boolean isJSONArray,
-                                             final Callback callback, final String key, final String value) {
+                                             final Callback callback, final Map<String, String> headers) {
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, jsonParams,
                                                           new Response.Listener<JSONObject>() {
                                                               @Override
@@ -353,9 +347,7 @@ public class ApiHttpClient {
         }) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String, String> params = new HashMap<>();
-                params.put(key, value);
-                return params;
+                return headers;
             }
         };
         requestConfig(request);
