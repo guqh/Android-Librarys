@@ -71,7 +71,7 @@ public class LoadingDialogFragment extends BaseDialogFragment {
      */
     public static void showLoading(Activity activity, String msg, boolean outCancel, ServiceTask task) {
         if (loadingDialog != null && loadingDialog.isVisible()) {
-            loadingDialog.message.setText(msg);
+            return;
         } else {
             dismissDialog();
             loadingDialog = new LoadingDialogFragment();
