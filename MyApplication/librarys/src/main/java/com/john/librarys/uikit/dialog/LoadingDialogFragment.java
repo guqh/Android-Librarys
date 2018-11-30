@@ -21,21 +21,15 @@ public class LoadingDialogFragment extends BaseDialogFragment {
     public LoadingDialogFragment() {
         setStyle(STYLE_NO_FRAME, 0);
     }
-    TextView message;
     String mMsg;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.dialog_loading, null);
-        message = (TextView) view.findViewById(R.id.msg);
         getDialog().setCanceledOnTouchOutside(false);
         return view;
     }
-    @Override
-    public void onResume() {
-        super.onResume();
-        message.setText(mMsg);
-    }
+
     /**
      * 显示
      *
