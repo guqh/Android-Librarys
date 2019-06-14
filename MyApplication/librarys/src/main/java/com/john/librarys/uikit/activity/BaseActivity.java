@@ -19,7 +19,6 @@ import com.john.librarys.net.interf.ServiceTask;
 import com.john.librarys.utils.permissions.PermissionsHelper;
 import com.john.librarys.uikit.dialog.LoadingDialogFragment;
 import com.john.librarys.utils.util.ACache;
-import com.john.librarys.utils.util.DialogHelper;
 import com.john.librarys.utils.util.ExitHelper;
 import com.zhy.autolayout.AutoLayoutActivity;
 
@@ -40,8 +39,6 @@ public class BaseActivity extends AutoLayoutActivity {
         this.mContext = this;
         registerEventBus();
         setBindingContentView();
-//        setStatusBar();
-        DialogHelper.init(this);
     }
 
     protected void setStatusBar() {
