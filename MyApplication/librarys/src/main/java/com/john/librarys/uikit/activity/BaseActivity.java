@@ -20,14 +20,13 @@ import com.john.librarys.utils.permissions.PermissionsHelper;
 import com.john.librarys.uikit.dialog.LoadingDialogFragment;
 import com.john.librarys.utils.util.ACache;
 import com.john.librarys.utils.util.ExitHelper;
-import com.zhy.autolayout.AutoLayoutActivity;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import de.greenrobot.event.EventBus;
 
-public class BaseActivity extends AutoLayoutActivity {
+public class BaseActivity extends AppCompatActivity {
 
     private EventBus mEventBus = EventBus.getDefault();
     protected Context mContext;
@@ -44,6 +43,7 @@ public class BaseActivity extends AutoLayoutActivity {
     protected void setStatusBar() {
         StatusBarUtil.setColor(this, getResources().getColor(R.color.primary));
     }
+
     /**
      * 设置绑定view </br>
      * 如果是绑定类型的view 就需要重写该方法
@@ -197,6 +197,7 @@ public class BaseActivity extends AutoLayoutActivity {
     }
 
     private boolean outCancel = false;
+
     public boolean isOutCancel() {
         return outCancel;
     }
@@ -204,20 +205,24 @@ public class BaseActivity extends AutoLayoutActivity {
     public void setOutCancel(boolean outCancel) {
         this.outCancel = outCancel;
     }
+
     /**
      * 显示加载框
      *
      * @param task
      */
     public void showLoadingDialog(ServiceTask task) {
-        LoadingDialogFragment.showLoading(this,task);
+        LoadingDialogFragment.showLoading(this, task);
     }
+
     public void showLoadingDialog(String msg) {
         LoadingDialogFragment.showLoading(this, msg);
     }
+
     public void showLoadingDialog() {
         LoadingDialogFragment.showLoading(this);
     }
+
     public void dismissLoadingDialog() {
         LoadingDialogFragment.dismissDialog();
 
@@ -322,13 +327,15 @@ public class BaseActivity extends AutoLayoutActivity {
 
     /**
      * 吐司 提示
+     *
      * @param showStr
      */
     private Toast toast;
-    public void showToast(String showStr){
-        if (toast==null){
-            toast=Toast.makeText(this,showStr, Toast.LENGTH_SHORT);
-        }else {
+
+    public void showToast(String showStr) {
+        if (toast == null) {
+            toast = Toast.makeText(this, showStr, Toast.LENGTH_SHORT);
+        } else {
             toast.setText(showStr);
         }
         toast.show();
