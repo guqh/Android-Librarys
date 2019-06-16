@@ -36,7 +36,6 @@ public class MyBaseRecyclerViewHolder extends RecyclerView.ViewHolder implements
 
     public MyBaseRecyclerViewHolder(MyBaseRecyclerViewAdapter recyclerViewAdapter, RecyclerView recyclerView, View itemView, MyBaseOnRVItemClickListener onRVItemClickListener, MyBaseOnRVItemLongClickListener onRVItemLongClickListener) {
         super(itemView);
-        AutoUtils.auto(itemView);
         mRecyclerViewAdapter = recyclerViewAdapter;
         mRecyclerView = recyclerView;
         mContext = mRecyclerView.getContext();
